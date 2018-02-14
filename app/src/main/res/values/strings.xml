@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Date My Pet</string>
     <string name="bienvenida">Hola Mundo</string>
+    <string name="title_activity_login">Ingresar</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña (optional)</string>
+    <string name="action_sign_in">Ingresar ó Registrarse</string>
+    <string name="action_sign_in_short">Ingresar</string>
+    <string name="error_invalid_email">Correo no válido</string>
+    <string name="error_invalid_password">La contraseña es muy corta</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>

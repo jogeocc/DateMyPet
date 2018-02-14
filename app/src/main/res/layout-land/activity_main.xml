@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/perroygato"
-    android:layout_centerInParent="true"
+    android:background="@drawable/fperromuch"
     tools:context="com.example.jgchan.datemypet.MainActivity">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,8 +15,7 @@
         android:background="@drawable/fondo_opaco"
         tools:context="com.example.jgchan.datemypet.MainActivity"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textView"
@@ -29,9 +27,11 @@
             android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.313"
             tools:text="@string/bienvenida" />
 
         <Button
@@ -47,12 +47,13 @@
             android:textColor="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.182" />
+            app:layout_constraintVertical_bias="0.522" />
 
         <Button
-            android:id="@+id/btnLogin3"
+            android:id="@+id/btnLogin2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -64,9 +65,9 @@
             android:textColor="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.922"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.635" />
-
+            app:layout_constraintVertical_bias="0.469" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
