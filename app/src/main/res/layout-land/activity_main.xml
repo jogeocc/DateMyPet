@@ -15,7 +15,8 @@
         android:background="@drawable/fondo_opaco"
         tools:context="com.example.jgchan.datemypet.MainActivity"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView"
