@@ -5,6 +5,10 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="letrero_usuario">Nombre de usuario</string>
+    <string name="letrero_contrasenia">Contraseña</string>
+    <string name="letrero_registrar">Registrar</string>
+    <string name="letrero_ingresar">Ingresar</string>
     <string name="prompt_password">Contraseña (optional)</string>
     <string name="action_sign_in">Ingresar ó Registrarse</string>
     <string name="action_sign_in_short">Ingresar</string>
