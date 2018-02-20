@@ -24,10 +24,16 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
+<<<<<<< HEAD
+        <activity
+            android:name=".RegistroUsuarioActivity"
+            android:label="@string/title_activity_registro_usuario"
+=======
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".VeterinarioActivity"
             android:label="@string/title_activity_veterinario"
+>>>>>>> a9d82f7a28ee2592911b55fbe50566d69bd604a8
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
