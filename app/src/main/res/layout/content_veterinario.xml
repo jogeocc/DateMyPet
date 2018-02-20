@@ -34,7 +34,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Veterinario"
                 android:textAlignment="textStart"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp" />
 
         </LinearLayout>
