@@ -19,7 +19,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+<<<<<<< HEAD
     <string name="title_activity_registro_usuario">RegistroUsuarioActivity</string>
+=======
+    <string name="title_activity_veterinario">VeterinarioActivity</string>
+>>>>>>> a9d82f7a28ee2592911b55fbe50566d69bd604a8
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
