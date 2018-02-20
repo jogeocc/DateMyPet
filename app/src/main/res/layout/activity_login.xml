@@ -6,6 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@drawable/fondo2"
+    android:scaleType="centerCrop"
     tools:context="com.example.jgchan.datemypet.LoginActivity">
 
     <!-- Login progress -->
