@@ -27,7 +27,7 @@
 
         <activity
             android:name=".RegistroUsuarioActivity"
-            android:label="@string/title_activity_registro_usuario"></activity>
+            android:label="Datos personales"></activity>
 
         <activity android:name=".RegistroActivity" />
         <activity

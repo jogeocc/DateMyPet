@@ -97,6 +97,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
             android:background="@color/colorAccent"
+            android:onClick="continuar_click"
             android:text="Continuar"
             android:textColor="@android:color/background_light"
             android:textStyle="bold" />
