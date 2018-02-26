@@ -76,7 +76,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.201"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3">
+                app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
             <TextView
                 android:id="@+id/textView5"
@@ -106,7 +106,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.171"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
             <TextView
                 android:id="@+id/textView6"
@@ -194,7 +194,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.171"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/textView4"/>
 
             <Button
                 android:id="@+id/btnRegistrar"
@@ -210,10 +210,5 @@
                 android:textStyle="bold"/>
 
         </LinearLayout>
-    </ScrollView><![CDATA[
-
-    app:layout_constraintTop_toBottomOf="@+id/textView5" />
-    app:layout_constraintTop_toBottomOf="@+id/textView4" />
-    app:layout_constraintTop_toBottomOf="@+id/textView3" />
-]]>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
