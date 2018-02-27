@@ -11,8 +11,9 @@ import android.widget.Toast;
 public class RegistroActivity extends AppCompatActivity {
 
     private EditText txtNombreUusario, txtContrasenia, txtConfirmarContrasenia;
-    private Button btnContinuar;
-    String nombre_usuario, contrasenia, rcontrasenia;
+    String nombre_usuario, contrasenia, rcontrasenia, nombre="", correo="", direccion="", telefono="", celular="";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,9 @@ public class RegistroActivity extends AppCompatActivity {
         txtContrasenia =(EditText)findViewById(R.id.txtContrasenia);
         txtConfirmarContrasenia =(EditText)findViewById(R.id.txtConfirmarContrasenia);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     public void continuar_click(View view){
@@ -30,9 +34,33 @@ public class RegistroActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), RegistroUsuarioActivity.class);
             i.putExtra("nombre_usuario",nombre_usuario);
             i.putExtra("contrasenia",contrasenia);
-            startActivity(i);
+            i.putExtra("nombre",nombre);
+            i.putExtra("correo",correo);
+            i.putExtra("direccion",direccion);
+            i.putExtra("telefono",telefono);
+            i.putExtra("celular",celular);
+
+            //startActivity(i);
+            startActivityForResult(i,1);
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+
+
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            nombre = data.getExtras().getString("nombre");
+            correo = data.getExtras().getString("correo");
+            direccion = data.getExtras().getString("direccion");
+            telefono = data.getExtras().getString("telefono");
+            celular = data.getExtras().getString("celular");
+        }
+
+
     }
 
     private boolean validar() {
@@ -41,7 +69,7 @@ public class RegistroActivity extends AppCompatActivity {
         contrasenia=txtContrasenia.getText().toString();
         rcontrasenia=txtConfirmarContrasenia.getText().toString();
 
-        Toast.makeText(this, "contrasenia: "+rcontrasenia, Toast.LENGTH_SHORT).show();
+       //Toast.makeText(this, "contrasenia: "+rcontrasenia, Toast.LENGTH_SHORT).show();
 
         if(nombre_usuario.length()==0){
             Toast.makeText(this, "No ingresó el nombre de usuario", Toast.LENGTH_SHORT).show();
@@ -58,12 +86,18 @@ public class RegistroActivity extends AppCompatActivity {
             return  false;
         }
 
-        if(rcontrasenia==contrasenia){
+        if(!(contrasenia.toString().equals(rcontrasenia.toString()))){
             Toast.makeText(this, "Las contraseñas no concuerdan", Toast.LENGTH_SHORT).show();
             return  false;
         }
 
         return  true;
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

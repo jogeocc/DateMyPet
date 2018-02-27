@@ -20,6 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
@@ -31,4 +32,8 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    compile 'com.basgeekball:awesome-validation:2.0'
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
