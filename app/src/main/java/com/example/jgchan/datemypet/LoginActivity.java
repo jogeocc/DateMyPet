@@ -61,10 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText txtUsername, txtContrasenia;
     String nombre_usuario,contrasenia;
-    apiService service;
     TokenManager tokenManager;
-    AwesomeValidation validator;
-
+    apiService service;
     private static final String TAG = "IngresarActivity";
     Call<AccessToken> call;
     ProgressDialog progress;
@@ -77,17 +75,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        service = RetrofitBuilder.createService(apiService.class);
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-        validator = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-
         txtUsername=(EditText)findViewById(R.id.txtUsername);
         txtContrasenia=(EditText)findViewById(R.id.txtContrasenia);
 
-        if(tokenManager.getToken().getAccessToken() != null){
+
+        service = RetrofitBuilder.createService(apiService.class);
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+
+    /*   if(tokenManager.getToken().getAccessToken() != null){
             startActivity(new Intent(LoginActivity.this, VeterinarioActivity.class));
             finish();
-        }
+        }*/
 
     }
 
@@ -132,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
     public void  ingresar(){
 
 
-        call= service.ingresar(
+        call= service.login(
                 nombre_usuario,
                 contrasenia);
 
@@ -140,8 +139,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
-
-                Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_SHORT).show();
+                progress.dismiss();
+                Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_LONG).show();
                 return;
             /*    Log.w(TAG, "onResponse: "+response );
                 if(response.isSuccessful()){
