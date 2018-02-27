@@ -22,15 +22,17 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-
         <activity
             android:name=".RegistroUsuarioActivity"
-            android:label="Datos personales"></activity>
-
+            android:label="Datos personales" />
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".VeterinarioActivity"
             android:label="@string/title_activity_veterinario"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegistroCitasActivity"
+            android:label="@string/title_activity_registro_citas"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

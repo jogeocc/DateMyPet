@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
     public  void registrar(View view){
-        Intent intent = new Intent(this,RegistroActivity.class);
+       Intent intent = new Intent(this,RegistroActivity.class);
+
         startActivity(intent);
     }
 }
