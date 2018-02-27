@@ -129,7 +129,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
             if(validar()){
                progress = new ProgressDialog(this);
-                progress.setTitle("Mensaje");
+                progress.setTitle("Cargando");
                 progress.setMessage("Registrando datos, por favor espere...");
                 progress.setCancelable(false);
                 progress.show();

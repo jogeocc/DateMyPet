@@ -32,6 +32,11 @@ public interface apiService {
                                @Field("celular") String celular,
                                @Field("password") String email);
 
+    @POST("ingresar") //http://dominion.tk/api/
+    @FormUrlEncoded
+    Call<AccessToken> ingresar(@Field("username") String username ,
+                                @Field("password") String email);
+
 
 
 }

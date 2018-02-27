@@ -72,20 +72,20 @@
                 android:theme="@style/TextLabel">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/txtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:backgroundTint="@color/colorAccent"
-                    android:textColor="@color/colorAccent"
                     android:hint="Nombre de usuario"
                     android:imeActionId="1"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -97,7 +97,7 @@
 
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/txtContrasenia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
@@ -124,6 +124,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="100dp"
                 android:background="@color/colorAccent"
+                android:onClick="ingresar"
                 android:text="@string/letrero_ingresar"
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
