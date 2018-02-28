@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -74,18 +75,14 @@ public class IngresarActivity extends AppCompatActivity {
     }
 
     public void mensaje() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡Felicidades!")
-                .setMessage("La cuenta se registró con éxito")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(i);
+        Snackbar.make(getWindow().getDecorView().getRootView(), "Usuario no registrado", Snackbar.LENGTH_LONG)
+                .setAction("Registrar", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            Intent intent = new Intent(IngresarActivity.this,RegistroActivity.class);
+                            startActivity(intent);
                     }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                }).show();
     }
 
     private boolean validar() {
@@ -108,7 +105,7 @@ public class IngresarActivity extends AppCompatActivity {
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
                 progress.dismiss();
-              // Toast.makeText(IngresarActivity.this, "Entro a errores: "+response.code() , Toast.LENGTH_LONG).show();
+               //Toast.makeText(IngresarActivity.this, "Codigo: "+response.code() , Toast.LENGTH_LONG).show();
                //return;
                 Log.w(TAG, "onResponse: "+response );
                 if(response.isSuccessful()){
@@ -118,9 +115,13 @@ public class IngresarActivity extends AppCompatActivity {
                     finish();
                 }else{
 
-                    if (response.code() == 422) {
-
-                        Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
+                    if (response.code() == 421) {
+                         mensaje();
+                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
+                    }
+                    if (response.code() == 420) {
+                        handleErrors(response.errorBody());
+                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
                     }
                     if (response.code() == 401) {
                        // ApiError apiError = Utils.converErrors(response.errorBody());
@@ -135,7 +136,7 @@ public class IngresarActivity extends AppCompatActivity {
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
-
+                progress.dismiss();
                 msjErrores("Error en la conexión");
             }
         });
@@ -183,6 +184,9 @@ public class IngresarActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
     @Override
