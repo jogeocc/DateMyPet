@@ -120,7 +120,7 @@ public class IngresarActivity extends AppCompatActivity {
 
                     if (response.code() == 422) {
 
-                        Toast.makeText(IngresarActivity.this, ""+Utils.converErrors(response.errorBody()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
                     }
                     if (response.code() == 401) {
                        // ApiError apiError = Utils.converErrors(response.errorBody());
@@ -134,6 +134,9 @@ public class IngresarActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
+
+
+                msjErrores("Error en la conexión");
             }
         });
 
