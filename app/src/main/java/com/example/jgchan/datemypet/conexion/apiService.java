@@ -42,6 +42,9 @@ public interface apiService {
     @FormUrlEncoded
     Call<AccessToken> login(@Field("username") String username, @Field("password") String password);
 
+    @POST("logintemp")
+    @FormUrlEncoded
+    Call<AccessToken> ingresarfake(@Field("username") String username, @Field("password") String password);
 
     @POST("refresh")
     @FormUrlEncoded

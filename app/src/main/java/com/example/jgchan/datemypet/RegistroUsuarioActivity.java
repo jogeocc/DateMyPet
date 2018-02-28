@@ -151,6 +151,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         return  true;
     }
 
+
     public void  registrar(){
 
 

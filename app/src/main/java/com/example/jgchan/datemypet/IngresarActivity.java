@@ -1,49 +1,22 @@
 package com.example.jgchan.datemypet;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
 import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,12 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity {
+public class IngresarActivity extends AppCompatActivity {
 
     private EditText txtUsername, txtContrasenia;
     String nombre_usuario,contrasenia;
@@ -72,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_ingresar);
 
 
         txtUsername=(EditText)findViewById(R.id.txtUsername);
@@ -84,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
        if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(LoginActivity.this, VeterinarioActivity.class));
+            startActivity(new Intent(IngresarActivity.this, VeterinarioActivity.class));
             finish();
         }
 
@@ -131,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
     public void  ingresar(){
 
 
-        call= service.ingresarfake(
+        call= service.login(
                 nombre_usuario,
                 contrasenia);
 
@@ -140,23 +108,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
                 progress.dismiss();
-                //Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_LONG).show();
-                //return;
+              // Toast.makeText(IngresarActivity.this, "Entro a errores: "+response.code() , Toast.LENGTH_LONG).show();
+               //return;
                 Log.w(TAG, "onResponse: "+response );
                 if(response.isSuccessful()){
                     progress.dismiss();
                     tokenManager.saveToken(response.body());
-                    startActivity(new Intent(LoginActivity.this, VeterinarioActivity.class));
+                    startActivity(new Intent(IngresarActivity.this, VeterinarioActivity.class));
                     finish();
                 }else{
 
-
                     if (response.code() == 422) {
-                        handleErrors(response.errorBody());
+
+                        Toast.makeText(IngresarActivity.this, ""+Utils.converErrors(response.errorBody()), Toast.LENGTH_LONG).show();
                     }
                     if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                       // ApiError apiError = Utils.converErrors(response.errorBody());
+                        handleErrors(response.errorBody());
+                        //
                     }
                 }
 
@@ -165,10 +134,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
-                progress.dismiss();
-                Toast.makeText(LoginActivity.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     public void msjErrores(String Error) {
@@ -201,6 +170,10 @@ public class LoginActivity extends AppCompatActivity {
                 errores+="- "+error.getValue().get(0)+"\n";
             }
 
+            if (error.getKey().equals("auto")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
         }
 
         msjErrores(errores);
@@ -218,4 +191,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
