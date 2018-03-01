@@ -33,6 +33,10 @@
         <activity
             android:name=".RegistroCitasActivity"
             android:label="@string/title_activity_registro_citas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegistroVacunasActivity"
+            android:label="@string/title_activity_registro_vacunas"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

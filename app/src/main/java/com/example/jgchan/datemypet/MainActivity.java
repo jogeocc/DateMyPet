@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public  void registrar(View view){
        Intent intent = new Intent(this,RegistroActivity.class);
-
         startActivity(intent);
     }
 }
