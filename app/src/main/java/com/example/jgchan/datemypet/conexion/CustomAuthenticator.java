@@ -47,7 +47,7 @@ public class CustomAuthenticator implements Authenticator {
 
         if(res.isSuccessful()){
             AccessToken newToken = res.body();
-            tokenManager.saveToken(newToken);
+            //tokenManager.saveToken(newToken);
 
             return response.request().newBuilder().header("Authorization", "Bearer " + res.body().getAccessToken()).build();
         }else{

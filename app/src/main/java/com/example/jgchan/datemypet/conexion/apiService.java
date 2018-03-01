@@ -1,6 +1,7 @@
 package com.example.jgchan.datemypet.conexion;
 
 import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,23 +26,26 @@ public interface apiService {
        "telefono",
        "celular",
        'password'*/
-    Call<AccessToken> registrar(@Field("username") String username ,
-                               @Field("nombre") String nombre,
-                               @Field("correo") String correo,
-                               @Field("direccion") String direccion,
-                               @Field("telefono") String telefono,
-                               @Field("celular") String celular,
-                               @Field("password") String email);
+    Call<ParseoToken> registrar(@Field("username") String username ,
+                                @Field("nombre") String nombre,
+                                @Field("correo") String correo,
+                                @Field("direccion") String direccion,
+                                @Field("telefono") String telefono,
+                                @Field("celular") String celular,
+                                @Field("password") String email);
 
 
     @POST("ingresar")
     @FormUrlEncoded
-    Call<AccessToken> ingresar(@Field("username") String username, @Field("password") String password);
+    Call<ParseoToken> ingresar(@Field("username") String username, @Field("password") String password);
 
     @POST("login")
     @FormUrlEncoded
-    Call<AccessToken> login(@Field("username") String username, @Field("password") String password);
+    Call<ParseoToken> login(@Field("username") String username, @Field("password") String password);
 
+    @POST("logintemp")
+    @FormUrlEncoded
+    Call<ParseoToken> ingresarfake(@Field("username") String username, @Field("password") String password);
 
     @POST("refresh")
     @FormUrlEncoded

@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet;
 import android.content.SharedPreferences;
 
 import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 /**
  * Created by jgchan on 26/02/18.
@@ -27,9 +28,11 @@ public class TokenManager {
         return INSTANCE;
     }
 
-    public void saveToken(AccessToken token){
-        editor.putString("ACCESS_TOKEN", token.getAccessToken()).commit();
-        editor.putString("REFRESH_TOKEN", token.getRefreshToken()).commit();
+    public void saveToken(ParseoToken token){
+        editor.putString("ACCESS_TOKEN", token.getSuccess().getAccessToken()).commit();
+        editor.putString("REFRESH_TOKEN", token.getSuccess().getAccessToken()).commit();
+        editor.putString("ID", String.valueOf(token.getSuccess().getId())).commit();
+        editor.putString("USER", token.getSuccess().getUsername()).commit();
     }
 
     public void deleteToken(){
@@ -41,6 +44,8 @@ public class TokenManager {
         AccessToken token = new AccessToken();
         token.setAccessToken(prefs.getString("ACCESS_TOKEN", null));
         token.setRefreshToken(prefs.getString("REFRESH_TOKEN", null));
+        token.setId_user(prefs.getString("ID", null));
+        token.setName_user(prefs.getString("USER", null));
         return token;
     }
 
