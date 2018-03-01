@@ -28,6 +28,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -46,7 +47,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     private EditText txtNombre, txtDireccion, txtTelefono, txtCelular, txtCorreo;
     String nombre_usuario, contrasenia, nombre,direccion, telefono,celular, correo;
     apiService service;
-    Call<AccessToken> call;
+    Call<ParseoToken> call;
     private static final String TAG = "RegistroActivity";
     ProgressDialog progress;
 
@@ -164,9 +165,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 celular,
                 contrasenia);
 
-        call.enqueue(new Callback<AccessToken>() {
+        call.enqueue(new Callback<ParseoToken>() {
             @Override
-            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+            public void onResponse(Call<ParseoToken> call, Response<ParseoToken> response) {
 
                 Log.w(TAG, "onResponse: "+response );
                 if(response.isSuccessful()){
@@ -181,8 +182,10 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AccessToken> call, Throwable t) {
+            public void onFailure(Call<ParseoToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
+                progress.dismiss();
+                Toast.makeText(RegistroUsuarioActivity.this, "Lo sentimos ocurrio un error", Toast.LENGTH_SHORT).show();
             }
         });
     }

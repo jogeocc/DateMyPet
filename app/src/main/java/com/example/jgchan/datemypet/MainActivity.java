@@ -29,9 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         service = RetrofitBuilder.createService(apiService.class);
+
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
 
+        if(tokenManager.getToken().getAccessToken() != null){
+            startActivity(new Intent(MainActivity.this, VeterinarioActivity.class));
+            finish();
+        }
 
     }
 

@@ -17,6 +17,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,8 @@ public class IngresarActivity extends AppCompatActivity {
     TokenManager tokenManager;
     apiService service;
     private static final String TAG = "IngresarActivity";
-    Call<AccessToken> call;
-    ProgressDialog progress;
+    Call<ParseoToken> call;
+    ProgressDialog progress=null;
 
 
 
@@ -55,6 +56,10 @@ public class IngresarActivity extends AppCompatActivity {
        if(tokenManager.getToken().getAccessToken() != null){
             startActivity(new Intent(IngresarActivity.this, VeterinarioActivity.class));
             finish();
+        }
+
+        if(tokenManager.getToken().getName_user()!=null){
+            txtUsername.setText(tokenManager.getToken().getName_user());
         }
 
     }
@@ -100,14 +105,15 @@ public class IngresarActivity extends AppCompatActivity {
                 nombre_usuario,
                 contrasenia);
 
-        call.enqueue(new Callback<AccessToken>() {
+        call.enqueue(new Callback<ParseoToken>() {
             @Override
-            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+            public void onResponse(Call<ParseoToken> call, Response<ParseoToken> response) {
 
                 progress.dismiss();
-               //Toast.makeText(IngresarActivity.this, "Codigo: "+response.code() , Toast.LENGTH_LONG).show();
+               // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                Toast.makeText(IngresarActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
                //return;
-                Log.w(TAG, "onResponse: "+response );
+                Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
                     progress.dismiss();
                     tokenManager.saveToken(response.body());
@@ -133,7 +139,7 @@ public class IngresarActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AccessToken> call, Throwable t) {
+            public void onFailure(Call<ParseoToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
                 progress.dismiss();
@@ -146,8 +152,8 @@ public class IngresarActivity extends AppCompatActivity {
 
     public void msjErrores(String Error) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡UPPS!")
-                .setMessage("La cuenta no se pudo registrar por los siguientes motivos: \n\n"+Error+"")
+        builder.setTitle("¡OOPS!")
+                .setMessage("No pudo ingresar por los siguientes motivos: \n\n"+Error+"")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -187,7 +193,23 @@ public class IngresarActivity extends AppCompatActivity {
 
 
 
+    @Override
+    public void onBackPressed() {
 
+        if(progress!=null){
+
+            if(progress.isShowing()){
+                if(call != null){
+                    call.cancel();
+                    call = null;
+                }
+                progress.dismiss();
+            }
+
+        }
+
+        super.onBackPressed();
+    }
 
     @Override
     protected void onDestroy() {

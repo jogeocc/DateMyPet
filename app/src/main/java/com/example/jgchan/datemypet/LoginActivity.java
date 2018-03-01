@@ -42,6 +42,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     TokenManager tokenManager;
     apiService service;
     private static final String TAG = "IngresarActivity";
-    Call<AccessToken> call;
+    Call<ParseoToken> call;
     ProgressDialog progress;
 
 
@@ -86,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
        if(tokenManager.getToken().getAccessToken() != null){
             startActivity(new Intent(LoginActivity.this, VeterinarioActivity.class));
             finish();
+        }
+
+        if(tokenManager.getToken().getName_user()!=null){
+           txtUsername.setText(tokenManager.getToken().getName_user());
         }
 
     }
@@ -135,9 +140,9 @@ public class LoginActivity extends AppCompatActivity {
                 nombre_usuario,
                 contrasenia);
 
-        call.enqueue(new Callback<AccessToken>() {
+        call.enqueue(new Callback<ParseoToken>() {
             @Override
-            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+            public void onResponse(Call<ParseoToken> call, Response<ParseoToken> response) {
 
                 progress.dismiss();
                 //Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_LONG).show();
@@ -163,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AccessToken> call, Throwable t) {
+            public void onFailure(Call<ParseoToken> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
                 progress.dismiss();
                 Toast.makeText(LoginActivity.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
@@ -208,6 +213,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Presiono regresar", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     protected void onDestroy() {

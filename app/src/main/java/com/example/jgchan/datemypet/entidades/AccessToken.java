@@ -18,6 +18,20 @@ public class AccessToken {
     @Json(name ="access_token")
     String accessToken;
 
+    @Json(name ="id_user")
+    String id_user;
+
+    @Json(name ="name_user")
+    String name_user;
+
+    public String getName_user() {
+        return name_user;
+    }
+
+    public void setName_user(String name_user) {
+        this.name_user = name_user;
+    }
+
     @Json(name="refresh_token")
     String refreshToken;
 
@@ -41,9 +55,19 @@ public class AccessToken {
         return accessToken;
     }
 
+    public String getId_user(String id) {
+        return id_user;
+    }
+
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
+    }
+
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
+
 
     public String getRefreshToken() {
         return refreshToken;
