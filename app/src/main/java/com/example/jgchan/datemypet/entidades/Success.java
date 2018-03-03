@@ -12,6 +12,12 @@ public class Success {
     @Json(name = "id")
     private Integer id;
 
+    @Json(name ="name")
+    String name;
+
+    @Json(name ="email")
+    String email;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -36,6 +42,19 @@ public class Success {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

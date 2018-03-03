@@ -117,7 +117,7 @@ public class IngresarActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     progress.dismiss();
                     tokenManager.saveToken(response.body());
-                    startActivity(new Intent(IngresarActivity.this, VeterinarioActivity.class));
+                    startActivity(new Intent(IngresarActivity.this, MenuActivity.class));
                     finish();
                 }else{
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_user_img"
+            android:title="Mi perfil" />
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_ver_citas"
+            android:title="Citas" />
+        <item
+            android:id="@+id/nav_mascota"
+            android:icon="@drawable/ic_action_name"
+            android:title="Mascotas" />
+
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Enviar Comentario" />
+        </menu>
+    </item>
+
+    <item android:title="Sesión">
+        <menu>
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_action_salir"
+                android:title="Salir" />
+        </menu>
+    </item>
+
+</menu>

@@ -33,6 +33,8 @@ public class TokenManager {
         editor.putString("REFRESH_TOKEN", token.getSuccess().getAccessToken()).commit();
         editor.putString("ID", String.valueOf(token.getSuccess().getId())).commit();
         editor.putString("USER", token.getSuccess().getUsername()).commit();
+        editor.putString("NAME", String.valueOf(token.getSuccess().getName())).commit();
+        editor.putString("EMAIL", token.getSuccess().getEmail()).commit();
     }
 
     public void deleteToken(){
@@ -46,6 +48,8 @@ public class TokenManager {
         token.setRefreshToken(prefs.getString("REFRESH_TOKEN", null));
         token.setId_user(prefs.getString("ID", null));
         token.setName_user(prefs.getString("USER", null));
+        token.setName(prefs.getString("NAME", null));
+        token.setEmail(prefs.getString("EMAIL", null));
         return token;
     }
 

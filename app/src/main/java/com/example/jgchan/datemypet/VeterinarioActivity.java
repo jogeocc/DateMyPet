@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +16,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
+import com.example.jgchan.datemypet.conexion.apiService;
+import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.ParseoToken;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static java.lang.System.exit;
 
 public class VeterinarioActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TokenManager tokenManager;
+    apiService service;
+    String id_user=null;
+    private static final String TAG = "VeterinarioActivity";
+    Call<Citas> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +62,11 @@ public class VeterinarioActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        service = RetrofitBuilder.createService(apiService.class);
+
+        id_user=tokenManager.getToken().getId_user();
+        citas();
     }
 
     @Override
@@ -108,5 +127,53 @@ public class VeterinarioActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public  void  citas(){
+        call= service.miscitas(
+                id_user
+                );
+
+        call.enqueue(new Callback<Citas>() {
+            @Override
+            public void onResponse(Call<Citas> call, Response<Citas> response) {
+
+                //progress.dismiss();
+                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                Toast.makeText(VeterinarioActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //return;
+                Log.w(TAG, "onResponse: "+response);
+                if(response.isSuccessful()){
+                 //   progress.dismiss();
+
+
+                }else{
+
+                    if (response.code() == 421) {
+                        //mensaje();
+                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
+                    }
+                    if (response.code() == 420) {
+                        //handleErrors(response.errorBody());
+                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
+                    }
+                    if (response.code() == 401) {
+                        // ApiError apiError = Utils.converErrors(response.errorBody());
+                        //handleErrors(response.errorBody());
+                        //
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Citas> call, Throwable t) {
+                Log.w(TAG,"onFailure: "+t.getMessage());
+
+                //progress.dismiss();
+                //msjErrores("Error en la conexión");
+            }
+        });
     }
 }

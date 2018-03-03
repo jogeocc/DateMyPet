@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(MainActivity.this, VeterinarioActivity.class));
+            startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            System.exit(0);
             finish();
         }
 

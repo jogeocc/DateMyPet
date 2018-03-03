@@ -24,8 +24,30 @@ public class AccessToken {
     @Json(name ="name_user")
     String name_user;
 
+    @Json(name ="name")
+    String name;
+
+    @Json(name ="email")
+    String email;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getName_user() {
         return name_user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setName_user(String name_user) {
@@ -55,7 +77,7 @@ public class AccessToken {
         return accessToken;
     }
 
-    public String getId_user(String id) {
+    public String getId_user() {
         return id_user;
     }
 

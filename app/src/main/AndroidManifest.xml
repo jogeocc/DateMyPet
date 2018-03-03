@@ -34,14 +34,18 @@
             android:name=".RegistroCitasActivity"
             android:label="@string/title_activity_registro_citas"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".RegistroVacunasActivity"
             android:label="@string/title_activity_registro_vacunas"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
-        <activity android:name=".IngresarActivity"></activity>
->>>>>>> 6c4839db35e42f6d716145b47e99dcffb6e527c0
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".IngresarActivity" />
+
+        <activity android:name=".MenuActivity"
+            android:label="Inicio"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
     </application>
 
 </manifest>

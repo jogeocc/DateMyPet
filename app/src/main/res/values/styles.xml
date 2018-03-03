@@ -27,5 +27,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="NavigationViewStyle">
+        <!--  <item name="android:listPreferredItemHeightSmall">100dp</item> menu item height-->
+
+    </style>
+
 
 </resources>

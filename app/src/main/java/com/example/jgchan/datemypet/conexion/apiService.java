@@ -1,6 +1,7 @@
 package com.example.jgchan.datemypet.conexion;
 
 import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.Citas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import retrofit2.Call;
@@ -9,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 /**
  * Created by jgchan on 26/02/18.
@@ -50,6 +52,9 @@ public interface apiService {
     @POST("refresh")
     @FormUrlEncoded
     Call<AccessToken> refresh(@Field("refresh_token") String refreshToken);
+
+    @GET("citas/{idUsuario}/listado")
+    Call<Citas> miscitas(@Path("idUsuario") String idUsuario);
 
 
 }
