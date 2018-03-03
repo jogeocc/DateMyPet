@@ -16,7 +16,14 @@
             android:id="@+id/nav_mascota"
             android:icon="@drawable/ic_action_name"
             android:title="Mascotas" />
-
+        <item
+            android:id="@+id/nav_vacunas"
+            android:icon="@drawable/ic_menu_vacunas"
+            android:title="Vacunas" />
+        <item
+            android:id="@+id/nav_veterinarios"
+            android:icon="@drawable/ic_menu_veterinarios"
+            android:title="Veterinarios" />
 
     </group>
 
