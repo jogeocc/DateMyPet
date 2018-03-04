@@ -60,4 +60,7 @@ public interface apiService {
     @GET("usuario/{idUsuario}/ver")
     Call<Usuarios> usuario(@Path("idUsuario") String idUsuario);
 
+    @GET("/usuario/{idUsuario}/editar")
+    Call<Usuarios> traerdatosUsuario(@Path("idusuario") String idUsuario);
+
 }
