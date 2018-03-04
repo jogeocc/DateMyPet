@@ -44,48 +44,37 @@
             </LinearLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:theme="@style/TextLabel">
+
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView83"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:text="Mascota"
+                    android:textSize="21sp"
                     android:textColor="@color/colorAccent" />
 
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:theme="@style/TextLabel">
+                android:backgroundTint="@color/colorAccent"/>
 
-                <TextView
+            <TextView
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:text="Veterinario"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorAccent"
+                    android:textSize="21sp"/>
 
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
-            </android.support.design.widget.TextInputLayout>
-
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -105,27 +94,22 @@
             </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:theme="@style/TextLabel">
+
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView49"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:text="Tipo"
-                    android:textColor="@color/colorAccent" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/colorAccent"
+                    android:textSize="21sp"/>
 
 
-            </android.support.design.widget.TextInputLayout>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
