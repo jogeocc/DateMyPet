@@ -38,14 +38,15 @@
             android:name=".RegistroVacunasActivity"
             android:label="@string/title_activity_registro_vacunas"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".IngresarActivity" />
-
-        <activity android:name=".MenuActivity"
+        <activity
+            android:name=".MenuActivity"
             android:label="Inicio"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
+        <activity
+            android:name=".VerPerfilActivity"
+            android:label="@string/title_activity_ver_perfil"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
