@@ -41,7 +41,7 @@ public class VerPerfilActivity extends AppCompatActivity
     apiService service;
     String id_user=null;
     private TokenManager tokenManager;
-    TextView txtNombreUsuario;
+    TextView txtNombreUsuario,txtVerPerfilNombreUsuario, txtDireccionUsuario,txtTelefonoUsuario,txtCelularUsuario, txtCorreoUsuario;
     TextView nombreUsuario, correoUsuario;
     ProgressDialog progress;
 
@@ -49,7 +49,14 @@ public class VerPerfilActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
-      /*  txtNombreUsuario = (TextView) findViewById(R.id.txtNombreUsuario);
+
+        txtNombreUsuario = (TextView) findViewById(R.id.txtNombreUsuario);
+        txtVerPerfilNombreUsuario=(TextView) findViewById(R.id.txtVerPerfilNombreUsuario);
+        txtDireccionUsuario=(TextView) findViewById(R.id.txtDireccionUsuario);
+        txtTelefonoUsuario=(TextView) findViewById(R.id.txtTelefonoUsuario);
+        txtCelularUsuario=(TextView) findViewById(R.id.txtCelularUsuario);
+        txtCorreoUsuario=(TextView) findViewById(R.id.txtCorreoUsuario);
+
         //RECUPERANDO DATOS DEL PREF
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         //PARSEARLO
@@ -93,7 +100,7 @@ public class VerPerfilActivity extends AppCompatActivity
 
         usuarios();
 
-*/
+
     }
 
     @Override
@@ -180,15 +187,26 @@ public class VerPerfilActivity extends AppCompatActivity
                 //return;
                 //Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
+                    String tel;
                     progress.dismiss();
                     usuario=response.body().getUsuario();
 
                     txtNombreUsuario.setText(usuario.getUsername());
+                    txtVerPerfilNombreUsuario.setText(usuario.getNombre());
+                    txtDireccionUsuario.setText(usuario.getDireccion());
+
+                    if(usuario.getTelefono()!=null)tel=usuario.getTelefono();
+                    else tel= "-----------";
+
+                    txtTelefonoUsuario.setText(tel);
+                    txtCelularUsuario.setText(usuario.getCelular());
+                    txtCorreoUsuario.setText(usuario.getCorreo());
 
 
 
                 }else{
                     progress.dismiss();
+                     Toast.makeText(VerPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
                     if (response.code() == 421) {
                         //mensaje();
                         //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();

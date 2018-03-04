@@ -243,6 +243,9 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+        }else if(id == R.id.nav_perfil){
+            Intent i = new Intent(this, VerPerfilActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -250,8 +253,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-            Intent i = new Intent(this, VerPerfilActivity.class);
-            startActivity(i);
+
 
         } else if (id == R.id.nav_salir) {
             tokenManager.deleteToken();
