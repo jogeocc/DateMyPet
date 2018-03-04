@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -250,6 +251,29 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Oye!!! Mira estoy usando Date My Pet. Decargalo http://date-my-pet-mx.tk/Download");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+        } else if (id == R.id.nav_send) {
+
+            String email ="contactodatemypet@gmail.com"; /* Your email address here */
+                    String subject =  "Contactando a Date My Pet";/* Your subject here */
+                    String body = "Hola Date My Pet ....";/* Your body here */
+                    String chooserTitle = "Contactando a Date My Pet";/* Your chooser title here */
+
+            Uri uri = Uri.parse("mailto:" + email)
+                    .buildUpon()
+                    .appendQueryParameter("subject", subject)
+                    .appendQueryParameter("body", body)
+                    .build();
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
+            startActivity(Intent.createChooser(emailIntent, chooserTitle));
+
 
         } else if (id == R.id.nav_salir) {
             tokenManager.deleteToken();
