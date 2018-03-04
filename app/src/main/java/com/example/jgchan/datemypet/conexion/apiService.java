@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet.conexion;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Citas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
+import com.example.jgchan.datemypet.entidades.Usuarios;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -56,5 +57,7 @@ public interface apiService {
     @GET("citas/{idUsuario}/listado")
     Call<Citas> miscitas(@Path("idUsuario") String idUsuario);
 
+    @GET("usuario/{idUsuario}/ver")
+    Call<Usuarios> usuario(@Path("idUsuario") String idUsuario);
 
 }
