@@ -28,7 +28,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_registro_citas">RegistroCitasActivity</string>
-    <string name="title_activity_registro_vacunas">RegistroVacunasActivity</string>
-    <string name="title_activity_ver_perfil">VerPerfilActivity</string>
+    <string name="editar">Editar</string>
+    <string name="title_activity_registro_citas">Registrar de citas</string>
+    <string name="title_activity_registro_vacunas">Registro de vacunas</string>
+    <string name="title_activity_ver_perfil">Mi perfil</string>
 </resources>

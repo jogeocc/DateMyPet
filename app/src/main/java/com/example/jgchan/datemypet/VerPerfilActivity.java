@@ -1,9 +1,11 @@
 package com.example.jgchan.datemypet;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -69,8 +71,7 @@ public class VerPerfilActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                msjConfirmacion();
             }
         });
 
@@ -129,6 +130,8 @@ public class VerPerfilActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            msjConfirmacion();
+
             return true;
         }
 
@@ -232,5 +235,29 @@ public class VerPerfilActivity extends AppCompatActivity
                 //msjErrores("Error en la conexión");
             }
         });
+
     }
+
+    public void msjConfirmacion() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¡Advertencia!")
+                .setMessage("¿Seguro que desea eliminar su cuenta?")
+                .setCancelable(false)
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("Eliminar cuenta", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Eliminar(idUsuario);
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
