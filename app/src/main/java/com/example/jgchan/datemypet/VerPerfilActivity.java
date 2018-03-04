@@ -170,7 +170,7 @@ public class VerPerfilActivity extends AppCompatActivity
 
             progress = new ProgressDialog(this);
             progress.setTitle("Cargando");
-            progress.setMessage("Buscando usuarios, por favor espere...");
+            progress.setMessage("Buscando usuario, por favor espere...");
             progress.setCancelable(false);
             progress.show();
 
@@ -210,19 +210,7 @@ public class VerPerfilActivity extends AppCompatActivity
                 }else{
                     progress.dismiss();
                      Toast.makeText(VerPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
-                    if (response.code() == 421) {
-                        //mensaje();
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
-                    }
-                    if (response.code() == 420) {
-                        //handleErrors(response.errorBody());
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
-                    }
-                    if (response.code() == 401) {
-                        // ApiError apiError = Utils.converErrors(response.errorBody());
-                        //handleErrors(response.errorBody());
-                        //
-                    }
+
                 }
 
             }
