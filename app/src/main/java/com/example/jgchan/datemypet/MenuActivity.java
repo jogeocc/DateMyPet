@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -253,7 +254,6 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
 
         } else if (id == R.id.nav_salir) {
             tokenManager.deleteToken();
