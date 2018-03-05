@@ -133,8 +133,7 @@ public class VerPerfilActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(this, EditarPerfilActivity.class);
-            startActivity(i);
-
+            startActivityForResult(i,1);
             return true;
         }
 
@@ -311,6 +310,14 @@ public class VerPerfilActivity extends AppCompatActivity
                 //msjErrores("Error en la conexión");
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            usuarios();
+        }
 
 
     }

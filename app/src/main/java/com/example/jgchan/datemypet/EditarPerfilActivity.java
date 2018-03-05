@@ -1,9 +1,12 @@
 package com.example.jgchan.datemypet;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -130,8 +133,8 @@ public class EditarPerfilActivity extends AppCompatActivity
                 txtEditNombreCompleto.getText().toString(),
                 txtEditCorreo.getText().toString(),
                 txtEditDireccionUsuario.getText().toString(),
-                txtEditCelularUsuario.getText().toString(),
-                txtEditTelefonoUsuario.getText().toString()
+                txtEditTelefonoUsuario.getText().toString(),
+                txtEditCelularUsuario.getText().toString()
                 );
 
         call2.enqueue(new Callback<Success>() {
@@ -149,8 +152,7 @@ public class EditarPerfilActivity extends AppCompatActivity
 
                     tokenManager.guardarActualizacion( txtEditNombreUsuario.getText().toString(), txtEditNombreCompleto.getText().toString(),txtEditCorreo.getText().toString());
 
-                    Toast.makeText(EditarPerfilActivity.this, ""+respuesta, Toast.LENGTH_SHORT).show();
-                    finish();
+                    msjExito(respuesta);
 
 
                 }else{
@@ -241,6 +243,9 @@ public class EditarPerfilActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            Intent i = getIntent();
+            setResult(RESULT_OK,i);
+            finish();
             super.onBackPressed();
         }
     }
@@ -286,4 +291,21 @@ public class EditarPerfilActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void msjExito(String respuesta) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = getIntent();
+                        setResult(RESULT_OK,i);
+                        finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
