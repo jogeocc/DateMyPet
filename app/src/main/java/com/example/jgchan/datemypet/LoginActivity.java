@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ParseoToken> call, Response<ParseoToken> response) {
 
                 progress.dismiss();
-                //Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Entro a errores: "+response, Toast.LENGTH_LONG).show();
                 //return;
                 Log.w(TAG, "onResponse: "+response );
                 if(response.isSuccessful()){

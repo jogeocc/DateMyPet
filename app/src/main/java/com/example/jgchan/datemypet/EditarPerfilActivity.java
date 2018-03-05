@@ -1,5 +1,6 @@
 package com.example.jgchan.datemypet;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,25 +13,63 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
+import com.example.jgchan.datemypet.conexion.apiService;
+import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.Success;
+import com.example.jgchan.datemypet.entidades.Usuario;
+import com.example.jgchan.datemypet.entidades.Usuarios;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditarPerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Usuario usuario;
+    private AccessToken datosAlamcenados;
+
+    Call<Usuarios> call;
+    Call<Success> call2;
+    Button btnEditarUsuario;
+    Success success;
+    String respuesta;
+    apiService service;
+    String id_user=null;
+    private TokenManager tokenManager;
+    EditText txtEditNombreUsuario, txtEditNombreCompleto, txtEditDireccionUsuario, txtEditTelefonoUsuario, txtEditCelularUsuario, txtEditCorreo;
+    TextView nombreUsuario, correoUsuario;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
+
+        //RECUPERANDO DATOS DEL PREF
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        //PARSEARLO
+        datosAlamcenados= tokenManager.getToken();
+
+        txtEditNombreUsuario=(EditText)findViewById(R.id.txtEditNombreUsuario);
+        txtEditNombreCompleto=(EditText)findViewById(R.id.txtEditNombreCompleto);
+        txtEditDireccionUsuario=(EditText)findViewById(R.id.txtEditDireccionUsuario);
+        txtEditTelefonoUsuario=(EditText)findViewById(R.id.txtEditTelefonoUsuario);
+        txtEditCelularUsuario=(EditText)findViewById(R.id.txtEditCelularUsuario);
+        txtEditCorreo=(EditText)findViewById(R.id.txtEditCorreo);
+        btnEditarUsuario=(Button)findViewById(R.id.btnEditarUsuario);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +79,160 @@ public class EditarPerfilActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //OBTENIENDO EL PADRE HEADER
+        View headerView = navigationView.getHeaderView(0);
+
+        //BUSCANDO CONTROLLERS MEDIANTE EL PADRE QUE LOS CONTIENE
+        nombreUsuario=(TextView) headerView.findViewById(R.id.tvNombreCompleto);
+        correoUsuario=(TextView) headerView.findViewById(R.id.tvCorreoUsuario);
+
+        //SETEANDO LOS VALORES DE CORREO Y NOMBRE COMPLETO EN EL HEADER BUSCADOR
+        nombreUsuario.setText("Bienvenido " +datosAlamcenados.getName_user());
+        correoUsuario.setText(datosAlamcenados.getEmail());
+
+        service = RetrofitBuilder.createService(apiService.class); //HABILITAMOS EL SERVICIO DE PETICION
+
+        id_user=tokenManager.getToken().getId_user();
+
+
+        btnEditarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                actualizar();
+
+            }
+        });
+
+        traerDatos();
+    }
+
+    private void actualizar() {
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Buscando usuario, por favor espere...");
+        progress.setCancelable(false);
+        progress.show();
+
+        /*
+        @Field("username") String username ,
+        @Field("nombre") String nombre,
+        @Field("correo") String correo,
+        @Field("direccion") String direccion,
+        @Field("telefono") String telefono,
+        @Field("celular") String celular);
+*/
+        call2= service.actualizar(
+                ""+id_user,
+                txtEditNombreUsuario.getText().toString(),
+                txtEditNombreCompleto.getText().toString(),
+                txtEditCorreo.getText().toString(),
+                txtEditDireccionUsuario.getText().toString(),
+                txtEditCelularUsuario.getText().toString(),
+                txtEditTelefonoUsuario.getText().toString()
+                );
+
+        call2.enqueue(new Callback<Success>() {
+            @Override
+            public void onResponse(Call<Success> call, Response<Success> response) {
+
+                //progress.dismiss();
+                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarPerfilActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //return;
+                //Log.w(TAG, "onResponse: "+response);
+                if(response.isSuccessful()){
+                    progress.dismiss();
+                    respuesta=response.body().getSuccess();
+
+                    tokenManager.guardarActualizacion( txtEditNombreUsuario.getText().toString(), txtEditNombreCompleto.getText().toString(),txtEditCorreo.getText().toString());
+
+                    Toast.makeText(EditarPerfilActivity.this, ""+respuesta, Toast.LENGTH_SHORT).show();
+                    finish();
+
+
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(EditarPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Success> call, Throwable t) {
+                //Log.w(TAG,"onFailure: "+t.getMessage());
+
+                progress.dismiss();
+                //msjErrores("Error en la conexión");
+            }
+        });
+
+
+    }
+
+
+    private void traerDatos() {
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Buscando usuario, por favor espere...");
+        progress.setCancelable(false);
+        progress.show();
+
+
+
+        call= service.usuario(
+                id_user
+        );
+
+        call.enqueue(new Callback<Usuarios>() {
+            @Override
+            public void onResponse(Call<Usuarios> call, Response<Usuarios> response) {
+
+                //progress.dismiss();
+                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarPerfilActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //return;
+                //Log.w(TAG, "onResponse: "+response);
+                if(response.isSuccessful()){
+                    String tel=null;
+                    progress.dismiss();
+                    usuario=response.body().getUsuario();
+
+                    txtEditNombreUsuario.setText(usuario.getUsername());
+                    txtEditNombreCompleto.setText(usuario.getNombre());
+                    txtEditDireccionUsuario.setText(usuario.getDireccion());
+
+                    if(usuario.getTelefono()!=null)tel=usuario.getTelefono();
+
+
+                    txtEditTelefonoUsuario.setText(tel);
+                    txtEditCelularUsuario.setText(usuario.getCelular());
+                    txtEditCorreo.setText(usuario.getCorreo());
+
+
+
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(EditarPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Usuarios> call, Throwable t) {
+                //Log.w(TAG,"onFailure: "+t.getMessage());
+
+                progress.dismiss();
+                //msjErrores("Error en la conexión");
+            }
+        });
+
+
     }
 
     @Override
@@ -52,12 +245,7 @@ public class EditarPerfilActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.editar_perfil, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
