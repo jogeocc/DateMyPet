@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-DateMyPet.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-DateMyPet.iml" />
       <module fileurl="file://$PROJECT_DIR$/DateMyPet.iml" filepath="$PROJECT_DIR$/DateMyPet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/DateMyPet-app.iml" filepath="$PROJECT_DIR$/app/DateMyPet-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
