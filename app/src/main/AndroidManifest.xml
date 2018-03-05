@@ -46,6 +46,10 @@
         <activity
             android:name=".VerPerfilActivity"
             android:label="Mi perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditarPerfilActivity"
+            android:label="@string/title_activity_editar_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

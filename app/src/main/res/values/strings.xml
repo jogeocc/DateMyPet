@@ -32,4 +32,5 @@
     <string name="title_activity_registro_citas">Registrar de citas</string>
     <string name="title_activity_registro_vacunas">Registro de vacunas</string>
     <string name="title_activity_ver_perfil">Mi perfil</string>
+    <string name="title_activity_editar_perfil">EditarPerfilActivity</string>
 </resources>
