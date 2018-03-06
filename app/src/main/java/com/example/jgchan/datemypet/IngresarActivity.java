@@ -134,6 +134,27 @@ public class IngresarActivity extends AppCompatActivity {
                         handleErrors(response.errorBody());
                         //
                     }
+                    if (response.code() == 403) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IngresarActivity.this);
+                        builder.setTitle("¡OOPS!")
+                                .setMessage("Su cuenta esta desactivada,¿Desea Activarla?")
+                                .setCancelable(false)
+                                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+
+                                    }
+                                })
+                                .setPositiveButton("Activar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
                 }
 
             }

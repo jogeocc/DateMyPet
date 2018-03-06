@@ -2,6 +2,7 @@ package com.example.jgchan.datemypet;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,7 @@ import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuario;
 import com.example.jgchan.datemypet.entidades.Usuarios;
 
@@ -40,13 +42,13 @@ public class VerPerfilActivity extends AppCompatActivity
     private AccessToken datosAlamcenados;
 
     Call<Usuarios> call;
+    Call<Success> call2;
     apiService service;
     String id_user=null;
     private TokenManager tokenManager;
     TextView txtNombreUsuario,txtVerPerfilNombreUsuario, txtDireccionUsuario,txtTelefonoUsuario,txtCelularUsuario, txtCorreoUsuario;
     TextView nombreUsuario, correoUsuario;
     ProgressDialog progress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +132,8 @@ public class VerPerfilActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            msjConfirmacion();
-
+            Intent i = new Intent(this, EditarPerfilActivity.class);
+            startActivityForResult(i,1);
             return true;
         }
 
@@ -240,12 +242,84 @@ public class VerPerfilActivity extends AppCompatActivity
                 })
                 .setPositiveButton("Eliminar cuenta", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //Eliminar(idUsuario);
+                        eliminar(id_user);
                     }
                 });
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public  void eliminar(String id_user){
+
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Buscando usuario, por favor espere...");
+        progress.setCancelable(false);
+        progress.show();
+
+
+
+        call2= service.eliminarCuenta(
+                id_user
+        );
+
+        call2.enqueue(new Callback<Success>() {
+            @Override
+            public void onResponse(Call<Success> call, Response<Success> response) {
+
+                progress.dismiss();
+                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                Toast.makeText(VerPerfilActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //return;
+                //Log.w(TAG, "onResponse: "+response);
+                if(response.isSuccessful()){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(VerPerfilActivity.this);
+                    builder.setTitle("¡Vuelva Pronto!")
+                            .setMessage("Su cuenta se dio de baja con éxito")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    tokenManager.eliminoCuenta();
+                                    Intent i = new Intent(VerPerfilActivity.this, IngresarActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(VerPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Success> call, Throwable t) {
+                //Log.w(TAG,"onFailure: "+t.getMessage());
+                Toast.makeText(VerPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+                progress.dismiss();
+                //msjErrores("Error en la conexión");
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            usuarios();
+        }
+
+
     }
 
 }

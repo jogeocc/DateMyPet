@@ -5,6 +5,17 @@ import com.squareup.moshi.Json;
 
 public class Success {
 
+    @Json(name = "success")
+    private String success;
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+
     @Json(name = "access_token")
     private String accessToken;
     @Json(name = "username")
