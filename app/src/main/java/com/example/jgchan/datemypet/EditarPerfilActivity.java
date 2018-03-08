@@ -219,7 +219,7 @@ public class EditarPerfilActivity extends AppCompatActivity
 
                 }else{
                     progress.dismiss();
-                    Toast.makeText(EditarPerfilActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfilActivity.this, "¡Error vuelva intentarlo mas tarde!" , Toast.LENGTH_LONG).show();
 
                 }
 
