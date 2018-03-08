@@ -159,7 +159,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
                 //progress.dismiss();
                 // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
-                Toast.makeText(MenuActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //Toast.makeText(MenuActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
                 //return;
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
@@ -198,6 +198,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
                 progress.dismiss();
+                Toast.makeText(MenuActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
                 //msjErrores("Error en la conexión");
             }
         });
