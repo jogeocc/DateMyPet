@@ -111,7 +111,7 @@ public class IngresarActivity extends AppCompatActivity {
 
                 progress.dismiss();
                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
-                Toast.makeText(IngresarActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+               // Toast.makeText(IngresarActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
                //return;
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
@@ -133,6 +133,27 @@ public class IngresarActivity extends AppCompatActivity {
                        // ApiError apiError = Utils.converErrors(response.errorBody());
                         handleErrors(response.errorBody());
                         //
+                    }
+                    if (response.code() == 403) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IngresarActivity.this);
+                        builder.setTitle("¡OOPS!")
+                                .setMessage("Su cuenta esta desactivada,¿Desea Activarla?")
+                                .setCancelable(false)
+                                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+
+                                    }
+                                })
+                                .setPositiveButton("Activar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     }
                 }
 

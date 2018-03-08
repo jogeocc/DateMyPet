@@ -159,7 +159,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
                 //progress.dismiss();
                 // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
-                Toast.makeText(MenuActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //Toast.makeText(MenuActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
                 //return;
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
@@ -198,6 +198,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
                 progress.dismiss();
+                Toast.makeText(MenuActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
                 //msjErrores("Error en la conexión");
             }
         });
@@ -244,11 +245,12 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+        }else if(id == R.id.nav_perfil){
+            Intent i = new Intent(this, VerPerfilActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
@@ -261,9 +263,9 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
         } else if (id == R.id.nav_send) {
 
             String email ="contactodatemypet@gmail.com"; /* Your email address here */
-                    String subject =  "Contactando a Date My Pet";/* Your subject here */
-                    String body = "Hola Date My Pet ....";/* Your body here */
-                    String chooserTitle = "Contactando a Date My Pet";/* Your chooser title here */
+            String subject =  "Contactando a Date My Pet";/* Your subject here */
+            String body = "Hola Date My Pet ....";/* Your body here */
+            String chooserTitle = "Contactando a Date My Pet";/* Your chooser title here */
 
             Uri uri = Uri.parse("mailto:" + email)
                     .buildUpon()

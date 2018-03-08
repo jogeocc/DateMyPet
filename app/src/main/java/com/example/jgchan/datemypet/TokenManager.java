@@ -37,9 +37,24 @@ public class TokenManager {
         editor.putString("EMAIL", token.getSuccess().getEmail()).commit();
     }
 
+    public void guardarActualizacion(String usuario, String nombre, String email){
+        editor.putString("USER", usuario).commit();
+        editor.putString("NAME", nombre).commit();
+        editor.putString("EMAIL", email).commit();
+    }
+
     public void deleteToken(){
         editor.remove("ACCESS_TOKEN").commit();
         editor.remove("REFRESH_TOKEN").commit();
+    }
+
+    public void eliminoCuenta(){
+        editor.remove("ACCESS_TOKEN").commit();
+        editor.remove("REFRESH_TOKEN").commit();
+        editor.remove("ID").commit();
+        editor.remove("USER").commit();
+        editor.remove("NAME").commit();
+        editor.remove("EMAIL").commit();
     }
 
     public AccessToken getToken(){
