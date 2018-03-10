@@ -8,6 +8,15 @@
     tools:context="com.example.jgchan.datemypet.VerPerfilActivity"
     tools:showIn="@layout/app_bar_ver_perfil">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -157,10 +166,8 @@
             android:paddingTop="10dp"
             android:text="Correo del usuario"
             android:textColor="@color/colorAccent" />
-
-
-
-    </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -35,8 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VerPerfilActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class VerPerfilActivity extends MenuActivity {
     Usuario usuario;
     List<Usuarios> usuarios;
     private AccessToken datosAlamcenados;
@@ -49,6 +49,8 @@ public class VerPerfilActivity extends AppCompatActivity
     TextView txtNombreUsuario,txtVerPerfilNombreUsuario, txtDireccionUsuario,txtTelefonoUsuario,txtCelularUsuario, txtCorreoUsuario;
     TextView nombreUsuario, correoUsuario;
     ProgressDialog progress;
+    private SwipeRefreshLayout lyRefresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,14 @@ public class VerPerfilActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //ANEXANDO EL REFRRESH
+
+        lyRefresh = (SwipeRefreshLayout)findViewById(R.id.refresh);
+        lyRefresh.setColorSchemeResources(
+                R.color.colorAccent,
+                R.color.colorPrimary,
+                R.color.colorPrimaryDark);
+
         //OBTENIENDO EL PADRE HEADER
         View headerView = navigationView.getHeaderView(0);
 
@@ -103,18 +113,21 @@ public class VerPerfilActivity extends AppCompatActivity
 
         usuarios();
 
+        lyRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                        usuarios();
+                        lyRefresh.setRefreshing(false); //Terminando el refresh
+                    }
+                }
+        );
+
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,30 +153,6 @@ public class VerPerfilActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
 
     public  void  usuarios(){
