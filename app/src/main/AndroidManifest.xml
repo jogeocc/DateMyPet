@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jgchan.datemypet">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -50,7 +51,16 @@
         <activity
             android:name=".EditarPerfilActivity"
             android:label="@string/title_activity_editar_perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListaMascotasActivity"
+            android:label="@string/title_activity_lista_mascotas"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".adaptadores.verImgMascotaDialog"
+            android:theme="@android:style/Theme.Material.Dialog.NoActionBar"
+            tools:targetApi="lollipop"></activity>
+
     </application>
 
 </manifest>

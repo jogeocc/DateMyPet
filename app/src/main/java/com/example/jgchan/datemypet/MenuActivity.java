@@ -237,7 +237,16 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
                 finish();
             }
 
-        } else if (id == R.id.nav_gallery) {
+        }else if (id == R.id.nav_mascota) {
+
+            if(!(this.getLocalClassName().equalsIgnoreCase("ListaMascotasActivity"))){
+                Intent i = new Intent(this, ListaMascotasActivity.class);
+                startActivity(i);
+                finish();
+            }
+
+        }
+        else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 

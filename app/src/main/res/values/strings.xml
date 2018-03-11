@@ -33,4 +33,5 @@
     <string name="title_activity_registro_vacunas">Registro de vacunas</string>
     <string name="title_activity_ver_perfil">Mi perfil</string>
     <string name="title_activity_editar_perfil">EditarPerfilActivity</string>
+    <string name="title_activity_lista_mascotas">Mis Mascotas</string>
 </resources>
