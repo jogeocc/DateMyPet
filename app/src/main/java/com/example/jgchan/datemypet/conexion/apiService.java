@@ -85,4 +85,7 @@ public interface apiService {
 
     @GET("mascota/{idMascota}/visualizar")
     Call<Mascotas> infoMascota(@Path("idMascota") String idMascota);
+
+    @GET("mascota/{idMascota}/compartir")
+    Call<Success> compartirPerfil(@Path("idMascota") String idMascota);
 }

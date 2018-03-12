@@ -32,6 +32,7 @@
                 android:layout_marginTop="@dimen/text_margin"
                 android:text="Compartir Perfil"
                 android:textAlignment="textEnd"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
 
@@ -54,7 +55,9 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="Tipo: " />
+            android:text="Tipo: "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvVerMasEdad"
@@ -63,7 +66,9 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="Edad:" />
+            android:text="Edad:"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvVerMasSexo"
@@ -72,7 +77,9 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="Sexo: " />
+            android:text="Sexo: "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvVerMasSenasPart"
@@ -81,7 +88,9 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="Señas particulares: \n" />
+            android:text="Señas particulares: \n"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvVerMasHobie"
@@ -90,7 +99,9 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="Hobbie's \n" />
+            android:text="Hobbie's \n"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
 
     </LinearLayout>

@@ -9,11 +9,12 @@
 
     <ImageView
         android:id="@+id/imgFotoMascotaDiag"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:scaleType="centerCrop"
         android:visibility="visible"
         app:srcCompat="@drawable/sinfoto" />
 
