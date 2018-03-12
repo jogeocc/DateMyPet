@@ -2,6 +2,7 @@ package com.example.jgchan.datemypet.conexion;
 
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Mascota;
 import com.example.jgchan.datemypet.entidades.Mascotas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 import com.example.jgchan.datemypet.entidades.Success;
@@ -81,4 +82,7 @@ public interface apiService {
 
     @GET("mismascotas/{idUsuario}/listado")
     Call<Mascotas> mismascotas(@Path("idUsuario") String idUsuario);
+
+    @GET("mascota/{idMascota}/visualizar")
+    Call<Mascotas> infoMascota(@Path("idMascota") String idMascota);
 }

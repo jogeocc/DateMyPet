@@ -1,6 +1,7 @@
 package com.example.jgchan.datemypet;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -115,12 +116,20 @@ public class ListaMascotasActivity extends MenuActivity{
 
 
         //HABILITAMOS EL ONCLICK PARA CADA ITEM DE LA LISTVIEW
-        lista_citas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista_mascota.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
-                TextView tit =(TextView)view.findViewById(R.id.idCita);
-                Toast.makeText(ListaMascotasActivity.this, "Titulo: "+ tit.getText().toString(), Toast.LENGTH_SHORT).show();
+                TextView idMascota =(TextView)view.findViewById(R.id.listIdMasc);
+                TextView nombreMascota =(TextView)view.findViewById(R.id.listNomMas);
+
+                String[] nombre = nombreMascota.getText().toString().split(":");
+
+                //Toast.makeText(ListaMascotasActivity.this, ""+idMascota.getText(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(ListaMascotasActivity.this, InfoMascotaActivity.class);
+                i.putExtra("idMascota",idMascota.getText());
+                i.putExtra("nombre",nombre[1]);
+                startActivity(i);
 
             }
         });

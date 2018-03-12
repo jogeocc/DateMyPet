@@ -18,4 +18,15 @@ public void setMascotas(List<Mascota> mascotas) {
 this.mascotas = mascotas;
 }
 
+    @Json(name = "mascota")
+    private Mascota mascota;
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
 }

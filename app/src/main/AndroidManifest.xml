@@ -55,12 +55,15 @@
         <activity
             android:name=".ListaMascotasActivity"
             android:label="@string/title_activity_lista_mascotas"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".adaptadores.verImgMascotaDialog"
             android:theme="@android:style/Theme.Material.Dialog.NoActionBar"
-            tools:targetApi="lollipop"></activity>
-
+            tools:targetApi="lollipop" />
+        <activity
+            android:name=".InfoMascotaActivity"
+            android:label="@string/title_activity_info_mascota"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
