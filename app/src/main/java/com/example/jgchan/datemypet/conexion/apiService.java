@@ -88,4 +88,8 @@ public interface apiService {
 
     @GET("mascota/{idMascota}/compartir")
     Call<Success> compartirPerfil(@Path("idMascota") String idMascota);
+
+    @GET("mascota/{idMascota}/eliminar")
+    Call<Success> eliminarMascota(@Path("idMascota") String idMascota);
+
 }

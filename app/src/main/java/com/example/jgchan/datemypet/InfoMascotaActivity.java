@@ -43,6 +43,8 @@ public class InfoMascotaActivity extends AppCompatActivity {
     String respuesta;
     TextView tvVerMasTipo,tvVerMasSexo,tvVerMasEdad,tvVerMasSenPart,tvVerMasHobbie;
     ProgressDialog progress;
+    FloatingActionButton eliminarMascota;
+    boolean elimino=false;
 
     Switch compartirPerfil;
 
@@ -62,6 +64,14 @@ public class InfoMascotaActivity extends AppCompatActivity {
         tvVerMasSenPart=(TextView)findViewById(R.id.tvVerMasSenasPart);
         tvVerMasHobbie=(TextView)findViewById(R.id.tvVerMasHobie);
         compartirPerfil =(Switch)findViewById(R.id.verMasCompPer);
+        eliminarMascota = (FloatingActionButton)findViewById(R.id.fabEliminarMasc);
+
+        eliminarMascota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                msjConfirmacion();
+            }
+        });
 
         compartirPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +99,82 @@ public class InfoMascotaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getInfoMascota();
+    }
+
+
+    public void msjConfirmacion() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¡Advertencia!")
+                .setMessage("¿Seguro que desea eliminar a su mascota?")
+                .setCancelable(false)
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("Eliminar cuenta", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                       eliminarMascota();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+
+    private void eliminarMascota() {
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Buscando mascota, por favor espere...");
+        progress.setCancelable(false);
+        progress.show();
+
+
+
+        call2= service.eliminarMascota(
+                ""+idMascota
+        );
+
+        call2.enqueue(new Callback<Success>() {
+            @Override
+            public void onResponse(Call<Success> call, Response<Success> response) {
+
+
+               // Toast.makeText(InfoMascotaActivity.this, "Error vuelva intentarlo mas tarde: " +response , Toast.LENGTH_LONG).show();
+
+
+                if(response.isSuccessful()){
+
+                    progress.dismiss();
+                    respuesta=response.body().getSuccess();
+                    elimino=true;
+                    msjExito(respuesta);
+
+
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(InfoMascotaActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Success> call, Throwable t) {
+                //Log.w(TAG,"onFailure: "+t.getMessage());
+
+                progress.dismiss();
+                Toast.makeText(InfoMascotaActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
     }
 
     @Override
@@ -219,7 +305,11 @@ public class InfoMascotaActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        if(elimino) {
+                            Intent i = new Intent(InfoMascotaActivity.this,ListaMascotasActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
                     }
                 });
         AlertDialog alert = builder.create();

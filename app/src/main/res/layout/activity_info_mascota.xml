@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleGravity="left|center_vertical"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="bottom|center_vertical"
+            app:expandedTitleGravity="right|bottom|center_vertical"
             app:layout_collapseParallaxMultiplier="0.4"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
@@ -50,15 +50,29 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_info_mascota" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_info_mascota"
+        android:layout_height="565dp"
+        tools:layout_editor_absoluteY="371dp" />
 
     <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabEliminarMasc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="right|top"
+        app:srcCompat="@android:drawable/ic_delete" /> -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabEliminarMasc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" /> -->
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </android.support.design.widget.CoordinatorLayout>
