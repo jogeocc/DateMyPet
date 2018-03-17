@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+
         txtUsername=(EditText)findViewById(R.id.txtUsername);
         txtContrasenia=(EditText)findViewById(R.id.txtContrasenia);
 
