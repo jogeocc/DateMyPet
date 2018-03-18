@@ -37,6 +37,19 @@ public class TokenManager {
         editor.putString("EMAIL", token.getSuccess().getEmail()).commit();
     }
 
+
+    public void auxSaveFoto(String ruta){
+        editor.putString("AUXFOTO", ruta).commit();
+    }
+
+    public String getSaveFoto(){
+       return prefs.getString("AUXFOTO", null);
+    }
+
+    public void eliminarAux(String ruta){
+        editor.remove("AUXFOTO").commit();
+    }
+
     public void guardarActualizacion(String usuario, String nombre, String email){
         editor.putString("USER", usuario).commit();
         editor.putString("NAME", nombre).commit();

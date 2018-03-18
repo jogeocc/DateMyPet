@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jgchan.datemypet">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <!-- Permisos que requiere la aplicacion -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -23,8 +28,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RegistroUsuarioActivity"
             android:label="Datos personales" />
@@ -65,7 +69,24 @@
         <activity
             android:name=".InfoMascotaActivity"
             android:label="@string/title_activity_info_mascota"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CrearMascotactivity"
+            android:label="@string/title_activity_crear_mascotactivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+        <!--Activity de la libreria image cropper para el recortado de imagenes
+       <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>  optional (needed if default theme has no action bar) -->
     </application>
 
 </manifest>

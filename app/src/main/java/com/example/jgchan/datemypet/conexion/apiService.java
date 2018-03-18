@@ -92,4 +92,15 @@ public interface apiService {
     @GET("mascota/{idMascota}/eliminar")
     Call<Success> eliminarMascota(@Path("idMascota") String idMascota);
 
+    @POST("registrar") //http://dominion.tk/api/
+    @Multipart
+    Call<Success> registrarMascota(@Field("k") String username ,
+                                @Field("nombre") String nombre,
+                                @Field("correo") String correo,
+                                @Field("direccion") String direccion,
+                                @Field("telefono") String telefono,
+                                @Field("celular") String celular,
+                                @Field("password") String password);
+
+
 }

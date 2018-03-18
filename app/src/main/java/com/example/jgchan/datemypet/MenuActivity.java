@@ -2,6 +2,7 @@ package com.example.jgchan.datemypet;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -271,9 +272,23 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
                     .appendQueryParameter("body", body)
                     .build();
 
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
-            startActivity(Intent.createChooser(emailIntent, chooserTitle));
-            finish();
+           // Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
+           // startActivity(Intent.createChooser(emailIntent, chooserTitle));
+
+
+            String mailto = "mailto: contactodatemypet@ate-my-pet-mx.tk"+
+                    "?cc=" + "support@date-my-pet-mx.tk" +
+                    "&subject=" + Uri.encode(subject) +
+                    "&body=" + Uri.encode(body);
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse(mailto));
+
+            try {
+                startActivity(emailIntent);
+            } catch (ActivityNotFoundException e) {
+                //TODO: Handle case where no email app is available
+            }
 
 
         } else if (id == R.id.nav_salir) {

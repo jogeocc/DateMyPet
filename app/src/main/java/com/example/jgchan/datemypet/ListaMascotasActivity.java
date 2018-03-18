@@ -68,11 +68,12 @@ public class ListaMascotasActivity extends MenuActivity{
         datosAlamcenados= tokenManager.getToken();
 
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevaMascota);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                    Intent i = new Intent(ListaMascotasActivity.this,CrearMascotactivity.class);
+                    startActivity(i);
             }
         });
 

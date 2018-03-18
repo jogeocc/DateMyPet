@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jgchan.datemypet.CrearMascotactivity"
+    tools:showIn="@layout/app_bar_crear_mascotactivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <LinearLayout
+                android:id="@+id/lnTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Agregar Mascota"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/imgRegMas"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sinfoto" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Nombre de la mascota: "
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.09"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <EditText
+                        android:id="@+id/txtEditNombreUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:ems="10"
+                        android:hint="Nombre de la mascota:"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorAccent"
+                        android:textColorHint="@color/colorAccent" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Raza de la mascota:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+
+                android:id="@+id/txtEditNombreCompleto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Raza de la mascota:"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Tipo de mascota:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Spinner
+
+                android:id="@+id/txtEditDireccionUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Sexo: "
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Macho" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hembra" />
+            </RadioGroup>
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Edad:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+
+                android:id="@+id/txtEditCelularUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Edad"
+                android:inputType="number"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Señas Particulares"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/txtEditCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Señas particulares"
+                android:inputType="textMultiLine|textImeMultiLine|textLongMessage"
+                android:lines="3"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Hobbies"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/txtMasHobbie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Mi mascota le gusta...."
+                android:inputType="textMultiLine|textImeMultiLine|textLongMessage"
+                android:lines="3"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/btnEditarUsuario"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/colorAccent"
+                android:text="@string/letrero_registrar"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
