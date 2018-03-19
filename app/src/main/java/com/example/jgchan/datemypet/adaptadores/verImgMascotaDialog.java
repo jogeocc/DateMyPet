@@ -2,8 +2,10 @@
 package com.example.jgchan.datemypet.adaptadores;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -40,7 +42,9 @@ public class verImgMascotaDialog extends Activity {
             public boolean onLongClick(View v) {
                 Bitmap bitmap = ((BitmapDrawable)imgFotoMascotaDiag.getDrawable()).getBitmap();
 
-                saveImageFile(bitmap);
+               Uri foto= Uri.parse(saveImageFile(bitmap));
+
+                galleryAddPic(foto);
                 showToastMessage("Foto Guardada");
                 return true;
             }
@@ -75,12 +79,16 @@ public class verImgMascotaDialog extends Activity {
             file.mkdirs();
         }
         String uriSting = (file.getAbsolutePath() + "/"
-                + System.currentTimeMillis() + ".jpg");
+                + "descarga_"+System.currentTimeMillis() + ".jpg");
         return uriSting;
     }
 
-    public void presiono(View v){
-        showToastMessage("Foto Guardada Onlick");
+
+    private void galleryAddPic(Uri direccionFoto) {
+        //Toast.makeText(this, ""+direccionFoto, Toast.LENGTH_SHORT).show();
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(direccionFoto);
+        this.sendBroadcast(mediaScanIntent);
     }
 
 }

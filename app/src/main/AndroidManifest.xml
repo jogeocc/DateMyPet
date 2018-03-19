@@ -73,6 +73,7 @@
         <activity
             android:name=".CrearMascotactivity"
             android:label="@string/title_activity_crear_mascotactivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <provider

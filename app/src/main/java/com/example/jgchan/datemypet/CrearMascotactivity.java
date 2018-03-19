@@ -282,7 +282,7 @@ public class CrearMascotactivity extends MenuActivity {
                         return;
                     }
 
-
+                    galleryAddPic(imageUri);
                     cortarImagen(imageUri);
 
 
@@ -313,7 +313,7 @@ public class CrearMascotactivity extends MenuActivity {
                     final Uri resultUri = UCrop.getOutput(data);
                     imagenCortada =resultUri;
                     fotoRegistroMascota.setImageURI(resultUri);
-
+                    galleryAddPic(resultUri);
                     //Toast.makeText(this, ""+resultUri, Toast.LENGTH_SHORT).show();
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
@@ -370,7 +370,7 @@ public class CrearMascotactivity extends MenuActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "DMP_MIMASCOTA" + timeStamp + "_";
         File storageDir = new File(Environment.getExternalStorageDirectory()
-                .getPath()+File.separator+Environment.DIRECTORY_PICTURES+File.separator+"DateMyPet", "Mis_fotos");
+                .getPath()+File.separator+Environment.DIRECTORY_PICTURES+File.separator+"DateMyPet", "Mis DateMyPet Fotos");
 
         if (!storageDir.exists()) {
             storageDir.mkdirs();
@@ -566,6 +566,12 @@ public class CrearMascotactivity extends MenuActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void galleryAddPic(Uri direccionFoto) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(direccionFoto);
+        this.sendBroadcast(mediaScanIntent);
     }
 
 
