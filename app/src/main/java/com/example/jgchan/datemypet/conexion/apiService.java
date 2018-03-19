@@ -108,5 +108,18 @@ public interface apiService {
                                     @Part("masSenaPart")RequestBody masSenaPart,
                                     @Part("masHobbie")RequestBody masHobbie);
 
+    @POST("mascota/actualizar")
+    @Multipart
+    Call<Success> editarMascota(
+            @Part("idMascota") RequestBody idMascota,
+            @Part MultipartBody.Part fotoRegistro,
+            @Part("masNombre") RequestBody masNombre,
+            @Part("masRaza")RequestBody masRaza,
+            @Part("masTipo")RequestBody masTipo,
+            @Part("masSexo")RequestBody masSexo,
+            @Part("masEdad")RequestBody masEdad,
+            @Part("masSenaPart")RequestBody masSenaPart,
+            @Part("masHobbie")RequestBody masHobbie);
+
 
 }

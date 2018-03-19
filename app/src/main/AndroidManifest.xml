@@ -5,10 +5,12 @@
 
     <!-- Permisos que requiere la aplicacion -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -72,9 +74,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CrearMascotactivity"
-            android:label="@string/title_activity_crear_mascotactivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_crear_mascotactivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -83,14 +85,18 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-        <!--Activity de la libreria image cropper para el recortado de imagenes -->
-      <activity
-        android:name="com.yalantis.ucrop.UCropActivity"
-        android:screenOrientation="portrait"
-          android:label="Corta la foto"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- Activity de la libreria image cropper para el recortado de imagenes -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:label="Corta la foto"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditarMascotaActivity"
+            android:label="@string/title_activity_editar_mascota"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
