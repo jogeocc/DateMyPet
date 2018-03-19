@@ -74,6 +74,7 @@ public class ListaMascotasActivity extends MenuActivity{
             public void onClick(View view) {
                     Intent i = new Intent(ListaMascotasActivity.this,CrearMascotactivity.class);
                     startActivity(i);
+                    finish();
             }
         });
 

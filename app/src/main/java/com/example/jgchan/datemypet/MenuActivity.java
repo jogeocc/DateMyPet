@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
     apiService service;
     String id_user=null;
     private TokenManager tokenManager;
-    ProgressDialog progress;
+    public ProgressDialog progress;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -139,7 +139,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
     }
 
-    public  void  citas(boolean estaRefrescando){
+    private  void  citas(boolean estaRefrescando){
 
         if(!estaRefrescando) {
             progress = new ProgressDialog(this);
@@ -296,6 +296,19 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             Intent i = new Intent(this, IngresarActivity.class);
             startActivity(i);
             finish();
+        }
+
+
+        if (progress!=null){
+            if (progress.isShowing()){
+                progress.dismiss();
+            }
+        }
+
+        if (call!=null){
+            if(call.isExecuted()){
+                call.cancel();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

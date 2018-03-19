@@ -2,7 +2,10 @@
 package com.example.jgchan.datemypet.adaptadores;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,6 +14,10 @@ import android.widget.Toast;
 
 import com.example.jgchan.datemypet.R;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class verImgMascotaDialog extends Activity {
 
@@ -28,7 +35,16 @@ public class verImgMascotaDialog extends Activity {
         this.setTitle(mascota);
 
         imgFotoMascotaDiag = (ImageView) findViewById(R.id.imgFotoMascotaDiag);
+        imgFotoMascotaDiag.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Bitmap bitmap = ((BitmapDrawable)imgFotoMascotaDiag.getDrawable()).getBitmap();
 
+                saveImageFile(bitmap);
+                showToastMessage("Foto Guardada");
+                return true;
+            }
+        });
         Picasso.get().load(url).into(imgFotoMascotaDiag);
 
 
@@ -38,6 +54,33 @@ public class verImgMascotaDialog extends Activity {
     void showToastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    public String saveImageFile(Bitmap bitmap) {
+        FileOutputStream out = null;
+        String filename = getFilename();
+        try {
+            out = new FileOutputStream(filename);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return filename;
+    }
+
+    private String getFilename() {
+        File file = new File(Environment.getExternalStorageDirectory()
+                .getPath()+File.separator+Environment.DIRECTORY_PICTURES+File.separator+"DateMyPet", "Perfil_Mascotas");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String uriSting = (file.getAbsolutePath() + "/"
+                + System.currentTimeMillis() + ".jpg");
+        return uriSting;
+    }
+
+    public void presiono(View v){
+        showToastMessage("Foto Guardada Onlick");
     }
 
 }

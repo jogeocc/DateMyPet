@@ -37,4 +37,5 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    compile 'com.github.yalantis:ucrop:2.2.1'
 }

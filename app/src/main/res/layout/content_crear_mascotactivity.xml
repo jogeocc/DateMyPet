@@ -83,7 +83,7 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <EditText
-                        android:id="@+id/txtEditNombreUsuario"
+                        android:id="@+id/txtRegMasNombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -112,7 +112,7 @@
 
             <EditText
 
-                android:id="@+id/txtEditNombreCompleto"
+                android:id="@+id/txtRegMasRaza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -136,13 +136,12 @@
 
             <Spinner
 
-                android:id="@+id/txtEditDireccionUsuario"
+                android:id="@+id/spnRegMasTipoMascota"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:layout_height="match_parent"
+                android:dropDownWidth="match_parent"
+                android:spinnerMode="dialog"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
 
@@ -158,24 +157,29 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
+                android:id="@+id/rgRegMasSexo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="10dp">
 
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <RadioButton
+                <RadioGroup
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Macho" />
+                    android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hembra" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/rbRegMasMacho"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Macho" />
+
+                    <RadioButton
+                        android:id="@+id/rbRegMasHembra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hembra" />
+                </RadioGroup>
             </LinearLayout>
 
             <TextView
@@ -193,7 +197,7 @@
 
             <EditText
 
-                android:id="@+id/txtEditCelularUsuario"
+                android:id="@+id/txtRegMasEdad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -216,7 +220,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/txtEditCorreo"
+                android:id="@+id/txtRegMasSenPar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -240,7 +244,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/txtMasHobbie"
+                android:id="@+id/txtRegMasHobbie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -251,7 +255,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <Button
-                android:id="@+id/btnEditarUsuario"
+                android:id="@+id/btnRegMasRegistrar"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

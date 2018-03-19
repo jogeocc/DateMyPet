@@ -8,6 +8,8 @@ import com.example.jgchan.datemypet.entidades.ParseoToken;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -92,15 +95,18 @@ public interface apiService {
     @GET("mascota/{idMascota}/eliminar")
     Call<Success> eliminarMascota(@Path("idMascota") String idMascota);
 
-    @POST("registrar") //http://dominion.tk/api/
+    @POST("mascota/crear/nueva")
     @Multipart
-    Call<Success> registrarMascota(@Field("k") String username ,
-                                @Field("nombre") String nombre,
-                                @Field("correo") String correo,
-                                @Field("direccion") String direccion,
-                                @Field("telefono") String telefono,
-                                @Field("celular") String celular,
-                                @Field("password") String password);
+    Call<Success> registrarMascota(
+                                    @Part("idUsuario") RequestBody idUsuario,
+                                    @Part MultipartBody.Part fotoRegistro,
+                                    @Part("masNombre") RequestBody masNombre,
+                                    @Part("masRaza")RequestBody masRaza,
+                                    @Part("masTipo")RequestBody masTipo,
+                                    @Part("masSexo")RequestBody masSexo,
+                                    @Part("masEdad")RequestBody masEdad,
+                                    @Part("masSenaPart")RequestBody masSenaPart,
+                                    @Part("masHobbie")RequestBody masHobbie);
 
 
 }

@@ -46,7 +46,7 @@ public class TokenManager {
        return prefs.getString("AUXFOTO", null);
     }
 
-    public void eliminarAux(String ruta){
+    public void eliminarSaveFoto(){
         editor.remove("AUXFOTO").commit();
     }
 

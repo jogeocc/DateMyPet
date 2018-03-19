@@ -84,9 +84,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <!--Activity de la libreria image cropper para el recortado de imagenes
-       <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>  optional (needed if default theme has no action bar) -->
+        <!--Activity de la libreria image cropper para el recortado de imagenes -->
+      <activity
+        android:name="com.yalantis.ucrop.UCropActivity"
+        android:screenOrientation="portrait"
+          android:label="Corta la foto"
+        android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

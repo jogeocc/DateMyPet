@@ -1,11 +1,15 @@
 package com.example.jgchan.datemypet;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,7 +21,9 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,19 +37,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
+import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.ApiError;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
+import com.yalantis.ucrop.view.UCropView;
 //import com.theartofdev.edmodo.cropper.CropImage;
 //import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -52,10 +67,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CrearMascotactivity extends MenuActivity {
 
@@ -70,6 +94,11 @@ public class CrearMascotactivity extends MenuActivity {
     private TokenManager tokenManager;
     TextView nombreUsuario, correoUsuario;
     ImageView fotoRegistroMascota;
+    TextView txtRegMasNombre,txtRegMasRaza,txtRegMasSenPar,txtRegMasHobbie,txtRegMasEdad;
+    Button btnRegMasRegistrar;
+    RadioGroup rgRegMasSex;
+    RadioButton rbRegMasMacho, rbRegMasHembra;
+    Spinner spRegMasTipo;
     ProgressDialog progress;
     Uri imagenCortada;
 
@@ -83,6 +112,9 @@ public class CrearMascotactivity extends MenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_mascotactivity);
+
+
+        //SOLICITANDO PERMISOS DE ESCRITURA Y CAMARA
 
         if (checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -98,8 +130,42 @@ public class CrearMascotactivity extends MenuActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     MY_ARCHIVOS);
         }
+        //----------------------------------------------------------------------------
 
-        fotoRegistroMascota = (ImageView) findViewById(R.id.imgRegMas);
+        // DEFINIENDO CONTROLLERS
+            fotoRegistroMascota = (ImageView) findViewById(R.id.imgRegMas);
+            txtRegMasNombre=(TextView)findViewById(R.id.txtRegMasNombre);
+            txtRegMasRaza=(TextView)findViewById(R.id.txtRegMasRaza);
+            txtRegMasSenPar=(TextView)findViewById(R.id.txtRegMasSenPar);
+            txtRegMasHobbie=(TextView)findViewById(R.id.txtRegMasHobbie);
+            txtRegMasEdad=(TextView)findViewById(R.id.txtRegMasEdad);
+            btnRegMasRegistrar=(Button)findViewById(R.id.btnRegMasRegistrar);
+            rbRegMasMacho=(RadioButton)findViewById(R.id.rbRegMasMacho);
+            rbRegMasHembra=(RadioButton)findViewById(R.id.rbRegMasHembra);
+            spRegMasTipo=(Spinner)findViewById(R.id.spnRegMasTipoMascota);
+        //-----------------------------------------------------------------------------
+
+        //INFLAR SPINNER CON LAS OPCIONES
+
+            String []tipos={"Seleccione el tipo de mascota","Perro","Gato","Ave","Otros"};
+            ArrayAdapter <String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, tipos);
+            spRegMasTipo.setAdapter(adapter);
+
+
+        //-------------------------------------------------------------------------------------------------------------
+
+
+        //-------------- HABILITANDO BOTON REGISTRAR ----------------------------------------
+
+            btnRegMasRegistrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    registrarMascota();
+                }
+            });
+
+
+        //-----------------------------------------------------------------------------
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -195,6 +261,9 @@ public class CrearMascotactivity extends MenuActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+       if(requestCode!= UCrop.REQUEST_CROP) msjCargando();
+       if(resultCode!=RESULT_OK) progress.dismiss();
+
         switch (requestCode) {
             case 0:
                 if (resultCode == RESULT_OK) {
@@ -206,7 +275,6 @@ public class CrearMascotactivity extends MenuActivity {
                     File file = new File(imageUri.getPath());
 
 
-
                     try {
                         InputStream ims = new FileInputStream(file);
                         fotoRegistroMascota.setImageBitmap(BitmapFactory.decodeStream(ims));
@@ -215,6 +283,7 @@ public class CrearMascotactivity extends MenuActivity {
                     }
 
 
+                    cortarImagen(imageUri);
 
 
                 }
@@ -222,22 +291,53 @@ public class CrearMascotactivity extends MenuActivity {
                 break;
             case 1:
                 if (resultCode == RESULT_OK) {
-                    Uri selectedImage = data.getData();
-                    Toast.makeText(this, "Entro a gal", Toast.LENGTH_SHORT).show();
-                    fotoRegistroMascota.setImageURI(selectedImage);
+                    Uri imageUri = data.getData();
+                    //Toast.makeText(this, "Entro a gal", Toast.LENGTH_SHORT).show();
+                    fotoRegistroMascota.setImageURI(imageUri);
+
+
+                    //Toast.makeText(this, ""+Uri.parse(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_PICTURES)+File.separator+"fotocortada.jpg")), Toast.LENGTH_LONG).show();
+
+
+                    cortarImagen(imageUri);
+
+
+
+                }
+                break;
+
+            case  UCrop.REQUEST_CROP:
+                if (resultCode == RESULT_OK) {
+
+                    progress.dismiss();
+                    final Uri resultUri = UCrop.getOutput(data);
+                    imagenCortada =resultUri;
+                    fotoRegistroMascota.setImageURI(resultUri);
+
+                    //Toast.makeText(this, ""+resultUri, Toast.LENGTH_SHORT).show();
+                } else if (resultCode == UCrop.RESULT_ERROR) {
+                    final Throwable cropError = UCrop.getError(data);
+                    //Toast.makeText(this, ""+cropError, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
+    }
 
-      /*  if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                imagenCortada = result.getUri();
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
-        */
+    private void cortarImagen(Uri imageUri) {
+
+        progress.dismiss();
+
+        UCrop.Options options = new UCrop.Options();
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        options.setToolbarTitle("Cortar Imagen");
+        options.setActiveWidgetColor(ContextCompat.getColor(this,R.color.colorAccent));
+
+        UCrop.of(imageUri, Uri.parse(crearNombreFoto()))
+                .withAspectRatio(1, 1)
+                .withOptions(options)
+                .withMaxResultSize(500, 500)
+                .start(CrearMascotactivity.this);
     }
 
 
@@ -269,8 +369,12 @@ public class CrearMascotactivity extends MenuActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "DMP_MIMASCOTA" + timeStamp + "_";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM), "Camera");
+        File storageDir = new File(Environment.getExternalStorageDirectory()
+                .getPath()+File.separator+Environment.DIRECTORY_PICTURES+File.separator+"DateMyPet", "Mis_fotos");
+
+        if (!storageDir.exists()) {
+            storageDir.mkdirs();
+        }
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -287,6 +391,182 @@ public class CrearMascotactivity extends MenuActivity {
     }
 
 
+    private String crearNombreFoto(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "DMP_MIMASCOTA_CORT" + timeStamp + "_";
+        String nombre =Environment.getExternalStorageDirectory()
+                .getPath()+File.separator+Environment.DIRECTORY_PICTURES+File.separator+"DateMyPet"+File.separator+"Perfil_Mascotas"+File.separator+imageFileName+".jpg";
+        return nombre;
+    }
+
+    private void msjCargando(){
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Cargando foto...");
+        progress.setCancelable(false);
+        progress.show();
+    }
+
+
+
+    private void registrarMascota(){
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Cargando");
+        progress.setMessage("Registrando Mascota...");
+        progress.setCancelable(false);
+        progress.show();
+
+
+        MultipartBody.Part masFotoFile=null;
+
+        if(imagenCortada!=null) {
+            File file =new File(imagenCortada.getPath());
+            masFotoFile = MultipartBody.Part.createFormData("masFotoFile", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        }
+
+
+        RequestBody idUsuario = RequestBody.create(MediaType.parse("text/plain"), id_user);
+        RequestBody masNombre = RequestBody.create(MediaType.parse("text/plain"), txtRegMasNombre.getText().toString());
+        RequestBody masRaza = RequestBody.create(MediaType.parse("text/plain"), txtRegMasRaza.getText().toString());
+        RequestBody masTipo = RequestBody.create(MediaType.parse("text/plain"), spRegMasTipo.getSelectedItem().toString());
+        RequestBody masSexo = RequestBody.create(MediaType.parse("text/plain"), sexoMascota());
+        RequestBody masEdad = RequestBody.create(MediaType.parse("text/plain"), txtRegMasEdad.getText().toString());
+        RequestBody masSenaPart = RequestBody.create(MediaType.parse("text/plain"), txtRegMasSenPar.getText().toString());
+        RequestBody masHobbie = RequestBody.create(MediaType.parse("text/plain"), txtRegMasHobbie.getText().toString());
+
+        call= service.registrarMascota(
+                idUsuario,
+                masFotoFile,
+                masNombre,
+                masRaza,
+                masTipo,
+                masSexo,
+                masEdad,
+                masSenaPart,
+                masHobbie
+        );
+
+        call.enqueue(new Callback<Success>() {
+            @Override
+            public void onResponse(Call<Success> call, Response<Success> response) {
+
+                progress.dismiss();
+                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
+                //Toast.makeText(EditarPerfilActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
+                //return;
+                //Log.w(TAG, "onResponse: "+response);
+                if(response.isSuccessful()){
+                    progress.dismiss();
+                    respuesta=response.body().getSuccess();
+                    tokenManager.eliminarSaveFoto();
+                    msjExito(respuesta);
+
+
+                }else{
+                    progress.dismiss();
+
+                    if(response.code()==401){
+                        handleErrors(response.errorBody() );
+                    }else {
+                        Log.e("Error Server",response.message()+ " "+response.code());
+                    }
+
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Success> call, Throwable t) {
+                //Log.w(TAG,"onFailure: "+t.getMessage());
+
+                progress.dismiss();
+                Toast.makeText(CrearMascotactivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+    private String sexoMascota() {
+
+        if(rbRegMasMacho.isChecked()) return  "M";
+        else return "H";
+
+    }
+
+
+    public void msjErrores(String Error) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¡UPPS!")
+                .setMessage("La cuenta no se pudo registrar por los siguientes motivos: \n\n"+Error+"")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void handleErrors(ResponseBody response){
+        progress.dismiss();
+        String errores="";
+
+        ApiError apiError = Utils.converErrors(response);
+
+
+        for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
+            if (error.getKey().equals("masNombre")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("masRaza")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("masTipo")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("masSexo")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("masEdad")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("masSenaPart")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+        }
+
+        msjErrores(errores);
+
+
+    }
+
+    public void msjExito(String respuesta) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent(CrearMascotactivity.this,ListaMascotasActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 
 }
