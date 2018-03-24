@@ -13,10 +13,11 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/iconocita" />
 
         <LinearLayout
             android:layout_width="210dp"
