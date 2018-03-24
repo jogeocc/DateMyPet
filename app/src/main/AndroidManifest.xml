@@ -4,6 +4,7 @@
     package="com.example.jgchan.datemypet">
 
     <!-- Permisos que requiere la aplicacion -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -100,8 +101,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HackActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListaVeterinariosActivity"
+            android:label="Mis Veterinarios"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

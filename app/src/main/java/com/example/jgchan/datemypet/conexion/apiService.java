@@ -7,6 +7,8 @@ import com.example.jgchan.datemypet.entidades.Mascotas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
+import com.example.jgchan.datemypet.entidades.Veterinario;
+import com.example.jgchan.datemypet.entidades.Veterinarios;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -121,5 +123,15 @@ public interface apiService {
             @Part("masSenaPart")RequestBody masSenaPart,
             @Part("masHobbie")RequestBody masHobbie);
 
+    @GET("veterinarios/{idUsuario}/listado")
+    Call<Veterinarios> misveterinarios(@Path("idUsuario") String idUsuario);
 
+    @POST("veterinarios/crear/nueva")
+    @FormUrlEncoded
+    Call<Success> registrarVeterinario(
+            @Field("idUsuario")  String idUsuario,
+            @Field("vetNomVeterinaria")  String nomVeterinaria,
+            @Field("vetNombre") String nomVeterinario,
+            @Field("vetDireccion") String direccionVet,
+            @Field("vetTelefono")  String telefono);
 }

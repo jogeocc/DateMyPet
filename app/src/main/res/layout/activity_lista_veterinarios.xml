@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_veterinario"
+        layout="@layout/app_bar_lista_veterinarios"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -19,6 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="#279b10"
         app:headerLayout="@layout/nav_header_general"
         app:menu="@menu/activity_general_drawer" />
 

@@ -244,21 +244,7 @@ public class CrearMascotactivity extends MenuActivity {
 
                 popup.show(); //showing popup menu
             }
-        }); //closing the setOnClickListener method
-
-
-      /*      CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
-
-        // start cropping activity for pre-acquired image saved on the device
-                CropImage.activity(imageUri)
-                        .start(this);
-
-
-                CropImage.activity()
-                        .start(this,CrearMascotactivity.class);
-     */
+        });
     }
 
 
