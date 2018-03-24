@@ -247,7 +247,10 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             }
 
         }
-        else if (id == R.id.nav_gallery) {
+        else if (id == R.id.nav_hack) {
+
+            Intent i = new Intent(this,HackActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_slideshow) {
 

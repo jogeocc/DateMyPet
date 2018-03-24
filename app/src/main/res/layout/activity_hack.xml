@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="	#DEDED7"
+    tools:context="com.example.jgchan.datemypet.HackActivity">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#4D515C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52">
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/button3"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_alignStart="@+id/button6"
+            android:layout_below="@+id/button2" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/button3"
+            android:layout_marginTop="17dp" />
+
+        <Button
+            android:id="@+id/btnIzq"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignTop="@+id/btnDer"
+            android:layout_toStartOf="@+id/btnAbajo"
+            android:background="#0E0F14" />
+
+        <Button
+            android:id="@+id/btnDer"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignTop="@+id/btnArriba"
+            android:layout_marginTop="31dp"
+            android:layout_toEndOf="@+id/btnArriba"
+            android:background="#0E0F14" />
+
+        <Button
+            android:id="@+id/btnAbajo"
+            android:layout_width="35dp"
+            android:layout_height="45dp"
+            android:layout_alignStart="@+id/btnArriba"
+            android:layout_below="@+id/btnArriba"
+            android:background="#0E0F14" />
+
+        <Button
+            android:id="@+id/btnArriba"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button6"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="37dp"
+            android:background="#0E0F14" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnDer"
+            android:layout_centerHorizontal="true"
+            android:background="#DFD7D6"
+
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btnSelect"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#0D0E12"
+
+                android:text="SELECT"
+                android:textColor="@android:color/white"
+                tools:text="SELECT" />
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#0D0E12"
+
+                android:text="START"
+                android:textColor="@android:color/white"
+                tools:text="START" />
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnA"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_above="@+id/btnB"
+            android:layout_toEndOf="@+id/btnB"
+            android:clickable="true"
+
+            android:scaleType="center"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:srcCompat="@drawable/ic_presion_a" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnB"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/btnArriba"
+            android:layout_toEndOf="@+id/button6"
+            android:clickable="true"
+
+            android:scaleType="center"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:srcCompat="@drawable/ic_presion_b" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
