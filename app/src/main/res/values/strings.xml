@@ -128,4 +128,13 @@
     <string name="title_activity_crear_mascotactivity">Agregar Mascota</string>
     <string name="title_activity_editar_mascota">Editar Mascota</string>
     <string name="title_activity_lista_veterinarios">ListaVeterinariosActivity</string>
+    <string name="title_activity_inicio">Bienvenido</string>
+    <string name="tab_text_1">Citas</string>
+    <string name="tab_text_2">+Cotas</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_ver_veterinario">El veterinario</string>
+    <string name="title_activity_editar_veterinario">Editar Veterinario</string>
 </resources>

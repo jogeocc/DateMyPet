@@ -224,8 +224,8 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
         if (id == R.id.nav_inicio) {
 
-            if(!(this.getLocalClassName().equalsIgnoreCase("MenuActivity"))){
-                Intent i = new Intent(this,MenuActivity.class);
+            if(!(this.getLocalClassName().equalsIgnoreCase("InicioActivity"))){
+                Intent i = new Intent(this,InicioActivity.class);
                 startActivity(i);
                 finish();
             }

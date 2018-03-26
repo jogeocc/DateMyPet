@@ -134,4 +134,19 @@ public interface apiService {
             @Field("vetNombre") String nomVeterinario,
             @Field("vetDireccion") String direccionVet,
             @Field("vetTelefono")  String telefono);
+
+    @GET("veterinarios/{idVeterinario}/visualizar")
+    Call<Veterinarios> infoVeterinario(@Path("idVeterinario") String idVeterinario);
+
+    @GET("veterinarios/{idVeterinario}/eliminar")
+    Call<Success> eliminarVeterinario(@Path("idVeterinario") String idVeterinario);
+
+    @PUT("veterinarios/{idVeterinario}/actualizar")
+    @FormUrlEncoded
+    Call<Success> actualizarVeterinario(
+            @Path("idVeterinario") String idVeterinario,
+            @Field("vetNomVeterinaria")  String nomVeterinaria,
+            @Field("vetNombre") String nomVeterinario,
+            @Field("vetDireccion") String direccionVet,
+            @Field("vetTelefono")  String telefono);
 }

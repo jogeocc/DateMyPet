@@ -140,10 +140,12 @@ public class ListaVeterinariosActivity extends MenuActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
                 TextView idVeterinario = (TextView) view.findViewById(R.id.idVeterinario);
-                TextView telefono = (TextView) view.findViewById(R.id.tvTelVet);
+                TextView nombreVeterinaria = (TextView) view.findViewById(R.id.tvNombreVet);
 
-
-               // Toast.makeText(ListaVeterinariosActivity.this, "" + idVeterinario, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(ListaVeterinariosActivity.this, VerVeterinarioActivity.class);
+                i.putExtra("idVeterinario",idVeterinario.getText().toString());
+                i.putExtra("nombre",nombreVeterinaria.getText().toString());
+                startActivityForResult(i, 1);
 
 
             }
@@ -271,6 +273,15 @@ public class ListaVeterinariosActivity extends MenuActivity {
                 //msjErrores("Error en la conexión");
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            getVeterinarios(false);
+        }
+
     }
 
     private void llamarVeterinario(String vetTelefono) {

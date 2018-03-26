@@ -9,9 +9,11 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_registro_citas"
+        layout="@layout/app_bar_activity_inicio"
+        app:itemIconTint="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -19,8 +21,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_general"
         app:itemIconTint="#279b10"
-        app:headerLayout="@layout/nav_header_registro_citas"
-        app:menu="@menu/activity_registro_citas_drawer" />
+        app:menu="@menu/activity_general_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

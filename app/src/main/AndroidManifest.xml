@@ -22,13 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -105,6 +99,24 @@
         <activity
             android:name=".ListaVeterinariosActivity"
             android:label="Mis Veterinarios"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InicioActivity"
+            android:label="DateMyPet"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".VerVeterinarioActivity"
+            android:label="@string/title_activity_ver_veterinario"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditarVeterinarioActivity"
+            android:label="@string/title_activity_editar_veterinario"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

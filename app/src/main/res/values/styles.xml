@@ -12,11 +12,13 @@
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/colorAccent</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:state_multiline">true</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -25,10 +27,21 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="AppTheme.AppBarOverlay.Mim" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="LoginBackground" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@drawable/fondo2</item>
+    </style>
+
+    <style name="TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Small"></style>
+
+    <style name="TextAppearance.Widget.ActionBar.MiSubtitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:maxLines">3</item>
     </style>
 
     <style name="NavigationViewStyle">
