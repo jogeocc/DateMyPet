@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
@@ -23,6 +24,7 @@
                 android:id="@+id/lnTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
 
@@ -36,7 +38,7 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Citas"
+                    android:text="Registrar Cita"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="24sp" />
@@ -44,37 +46,140 @@
             </LinearLayout>
 
 
-
-
-                <TextView
-                    android:id="@+id/textView83"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:text="Mascota"
-                    android:textSize="21sp"
-                    android:textColor="@color/colorAccent" />
+            <TextView
+                android:id="@+id/textView83"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Mascota"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
 
 
             <Spinner
+                android:id="@+id/spnIdMascota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAccent"/>
+                android:backgroundTint="@color/colorAccent"
+                android:spinnerMode="dialog" />
 
             <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:text="Veterinario"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="21sp"/>
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Veterinario"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
 
 
             <Spinner
+                android:id="@+id/spnIdVeterinario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAccent"/>
+                android:backgroundTint="@color/colorAccent"
+                android:spinnerMode="dialog" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/TextLabel">
+
+                    <EditText
+                        android:id="@+id/edtFechaCita"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:hint="Fecha"
+                        android:inputType="date"
+                        android:textColor="@color/colorPrimary"
+                        tools:ignore="Deprecated" />
+
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/btnDiaCita"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="0"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_calendario_blanco" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:theme="@style/TextLabel">
+
+                    <EditText
+                        android:id="@+id/edtHoraCita"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:hint="Hora"
+                        android:inputType="date"
+                        android:textColor="@color/colorPrimary"
+                        tools:ignore="Deprecated" />
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/btnHoraCita"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:scaleType="centerCrop"
+                    android:tint="@android:color/white"
+                    app:srcCompat="@drawable/ic_hora_blanca" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Tipo"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
+
+
+            <Spinner
+                android:id="@+id/spnTipoCita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:foregroundTint="@color/colorPrimary" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -83,45 +188,12 @@
                 android:theme="@style/TextLabel">
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/edtNotaCita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Fecha"
-                    android:inputType="date" />
-
-
-            </android.support.design.widget.TextInputLayout>
-
-
-
-
-                <TextView
-                    android:id="@+id/textView49"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:text="Tipo"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="21sp"/>
-
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAccent"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:theme="@style/TextLabel">
-
-                <EditText
-                    android:id="@+id/editText7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:maxLines="4"
+                    android:textColor="@color/colorPrimary"
                     android:hint="Nota"
                     android:inputType="textMultiLine" />
 

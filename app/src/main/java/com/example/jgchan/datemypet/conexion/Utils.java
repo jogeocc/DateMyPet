@@ -18,7 +18,9 @@ import java.lang.annotation.Annotation;
 public class Utils {
 
     public static  ApiError converErrors(ResponseBody response){
-        Converter<ResponseBody, ApiError> converter = RetrofitBuilder.getRetrofit()
+
+        Converter<ResponseBody, ApiError> converter =
+                 RetrofitBuilder.getRetrofit()
                 .responseBodyConverter(ApiError.class, new Annotation[0]);
 
         ApiError apiError = null;

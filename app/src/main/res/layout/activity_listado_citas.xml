@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_registro_citas"
+        layout="@layout/app_bar_listado_citas"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -19,8 +19,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemIconTint="#279b10"
         app:headerLayout="@layout/nav_header_general"
+        app:itemIconTint="#279b10"
         app:menu="@menu/activity_general_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

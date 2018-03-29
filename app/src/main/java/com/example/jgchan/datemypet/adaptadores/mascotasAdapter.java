@@ -68,9 +68,7 @@ public class mascotasAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-
-
-            LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.item_mascota, null);
 
         }

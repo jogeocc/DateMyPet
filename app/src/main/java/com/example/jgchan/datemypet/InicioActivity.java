@@ -112,7 +112,8 @@ public class InicioActivity extends MenuActivity {
                    Intent i = new Intent(InicioActivity.this,CrearMascotactivity.class);
                    startActivity(i);
                }else{
-                   Toast.makeText(InicioActivity.this, "Falta Activity", Toast.LENGTH_SHORT).show();
+                   Intent i = new Intent(InicioActivity.this,RegistroCitasActivity.class);
+                   startActivity(i);
                }
             }
         });

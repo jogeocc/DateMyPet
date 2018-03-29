@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
 
-        if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(MainActivity.this, MenuActivity.class));
+        if(tokenManager.getToken().getAccessToken() != null && tokenManager.getToken().getRemember_token() == null){
+            startActivity(new Intent(MainActivity.this, InicioActivity.class));
             System.exit(0);
             finish();
         }

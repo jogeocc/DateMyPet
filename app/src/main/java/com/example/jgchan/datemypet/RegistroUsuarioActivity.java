@@ -88,42 +88,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
 
-
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(RegistroUsuarioActivity.this, "Hola", Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
-            }
-        });*/
-
-      //  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-      //  ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-      //          this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-      //  drawer.addDrawerListener(toggle);
-      //  toggle.syncState();
-
-      //  NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
     }
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.registro_usuario, menu);
-        return true;
-    }*/
 
 
     public  void  registrar_click(View v){
@@ -137,7 +102,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
                registrar();
 
-               // Toast.makeText(this, "Se presiono el botonm", Toast.LENGTH_SHORT).show();
             }
     }
 
@@ -176,7 +140,12 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                         mensaje();
 
                 }else{
-                    handleErrors(response.errorBody() );
+                    try{
+                        handleErrors(response.errorBody() );
+                    }catch (Exception e){
+                        Toast.makeText(RegistroUsuarioActivity.this, "Codigo: "+response.code()+" mensaje: "+response.message(), Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
             }
@@ -193,7 +162,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     public void mensaje() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¡Felicidades!")
-                .setMessage("La cuenta se registró con éxito")
+                .setMessage("La cuenta se registró con éxito \n por favor active su cuenta")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -224,17 +193,6 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         String errores="";
 
         ApiError apiError = Utils.converErrors(response);
-      //  Toast.makeText(this, ""+apiError.getErrors(), Toast.LENGTH_LONG).show();
-
-        /*
-        *  nombre_usuario,
-                nombre,
-                correo,
-                direccion,
-                telefono,
-                celular,
-                contrasenia);
-        * */
 
         for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
             if (error.getKey().equals("username")){

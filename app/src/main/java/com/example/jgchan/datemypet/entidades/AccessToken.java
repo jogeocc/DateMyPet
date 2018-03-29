@@ -15,6 +15,10 @@ public class AccessToken {
     @Json(name = "expires_in")
     int expiresInt;
 
+
+    @Json(name ="remember_token")
+    String remember_token;
+
     @Json(name ="access_token")
     String accessToken;
 
@@ -90,6 +94,13 @@ public class AccessToken {
     }
 
 
+    public String getRemember_token() {
+        return remember_token;
+    }
+
+    public void setRemember_token(String remember_token) {
+        this.remember_token = remember_token;
+    }
 
     public String getRefreshToken() {
         return refreshToken;

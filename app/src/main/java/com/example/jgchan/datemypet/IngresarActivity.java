@@ -3,6 +3,7 @@ package com.example.jgchan.datemypet;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -53,8 +54,8 @@ public class IngresarActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
 
-       if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(IngresarActivity.this, VeterinarioActivity.class));
+       if(tokenManager.getToken().getAccessToken() != null && tokenManager.getToken().getRemember_token()==null ){
+            startActivity(new Intent(IngresarActivity.this, InicioActivity.class));
             finish();
         }
 
@@ -117,17 +118,16 @@ public class IngresarActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     progress.dismiss();
                     tokenManager.saveToken(response.body());
-                    startActivity(new Intent(IngresarActivity.this, MenuActivity.class));
+                    startActivity(new Intent(IngresarActivity.this, InicioActivity.class));
                     finish();
                 }else{
 
                     if (response.code() == 421) {
                          mensaje();
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
                     }
                     if (response.code() == 420) {
                         handleErrors(response.errorBody());
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
+
                     }
                     if (response.code() == 401) {
                        // ApiError apiError = Utils.converErrors(response.errorBody());
@@ -135,18 +135,12 @@ public class IngresarActivity extends AppCompatActivity {
                         //
                     }
                     if (response.code() == 403) {
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(IngresarActivity.this);
                         builder.setTitle("¡OOPS!")
-                                .setMessage("Su cuenta esta desactivada,¿Desea Activarla?")
+                                .setMessage("Su cuenta esta desactivada, por favor verifique su correo y active su cuenta.")
                                 .setCancelable(false)
-                                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-
-                                    }
-                                })
-                                .setPositiveButton("Activar", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
                                     }
@@ -208,8 +202,13 @@ public class IngresarActivity extends AppCompatActivity {
         }
 
         msjErrores(errores);
+    }
 
 
+    public String getTipoCorreo(){
+
+        String toke_remember =tokenManager.getToken().getRemember_token();
+        return "http://date-my-pet-mx.tk/activar/"+toke_remember;
     }
 
 
@@ -228,6 +227,10 @@ public class IngresarActivity extends AppCompatActivity {
             }
 
         }
+
+
+        Intent i = new Intent(IngresarActivity.this, MainActivity.class);
+        startActivity(i);
 
         super.onBackPressed();
     }

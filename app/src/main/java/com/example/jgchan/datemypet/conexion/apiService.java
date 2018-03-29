@@ -66,6 +66,9 @@ public interface apiService {
     @GET("citas/{idUsuario}/listado")
     Call<Citas> miscitas(@Path("idUsuario") String idUsuario);
 
+    @GET("citas/{idUsuario}/miscitas")
+    Call<Citas> miscitascompletas(@Path("idUsuario") String idUsuario);
+
     @GET("usuario/{idUsuario}/ver")
     Call<Usuarios> usuario(@Path("idUsuario") String idUsuario);
 
@@ -126,6 +129,9 @@ public interface apiService {
     @GET("veterinarios/{idUsuario}/listado")
     Call<Veterinarios> misveterinarios(@Path("idUsuario") String idUsuario);
 
+    @GET("usuario/{idUsuario}/tiene-mascotas")
+    Call<Success> tieneMascotas(@Path("idUsuario") String idUsuario);
+
     @POST("veterinarios/crear/nueva")
     @FormUrlEncoded
     Call<Success> registrarVeterinario(
@@ -149,4 +155,22 @@ public interface apiService {
             @Field("vetNombre") String nomVeterinario,
             @Field("vetDireccion") String direccionVet,
             @Field("vetTelefono")  String telefono);
+
+
+    @GET("usuario/{idUsuario}/tiene-veterinarios")
+    Call<Success> tieneVeterinario(@Path("idUsuario") String idUsuario);
+
+
+    @POST("citas/crear/nueva")
+    @FormUrlEncoded
+    Call<Success> registrarCita(
+            @Field("idMascota") String idMascota,
+            @Field("idVeterinario") String idVeterinario,
+            @Field("ciFecha") String ciFecha,
+            @Field("ciHora") String ciHora,
+            @Field("ciTipo") String ciTipo,
+            @Field("ciNota") String ciNota);
+
+
+
 }

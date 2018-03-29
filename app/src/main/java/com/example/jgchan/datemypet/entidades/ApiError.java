@@ -1,5 +1,7 @@
 package com.example.jgchan.datemypet.entidades;
 
+import com.squareup.moshi.Json;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +11,30 @@ import java.util.Map;
 
 public class ApiError {
 
+    @Json(name = "remember_token")
+    private String rememberToken;
+    @Json(name = "mensaje")
+    private String mensaje;
 
-     String message;
+    public String getRememberToken() {
+        return rememberToken;
+    }
+
+    public void setRememberToken(String rememberToken) {
+        this.rememberToken = rememberToken;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+
+
+    String message;
          Map<String, List<String>> errors;
 
          public String getMessage() {

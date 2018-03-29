@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jgchan on 3/03/18.
@@ -26,6 +27,9 @@ public class citasAdapter extends BaseAdapter {
     protected Activity activity;
     protected List<Cita> items;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formatoHoraServer = new SimpleDateFormat("H:mm:ss");
+
+    SimpleDateFormat formatoHoraNormal = new SimpleDateFormat("h:mm a");
 
     SimpleDateFormat formatoNormal = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -75,10 +79,13 @@ public class citasAdapter extends BaseAdapter {
        try {
 
             Date fechaDelServer = formatter.parse(dir.getCiFecha());
+            Date horaDeLaCita  = formatoHoraServer.parse(dir.getCiHora());
             String fechaNormal= formatoNormal.format(fechaDelServer);
+            String horaNormal = formatoHoraNormal.format(horaDeLaCita);
+
 
            TextView title = (TextView) v.findViewById(R.id.tvTituloCita);
-           title.setText(fechaNormal);
+           title.setText(fechaNormal+ " "+horaNormal);
 
             //Toast.makeText(activity, "la fecha tiene formato "+fechaNormal, Toast.LENGTH_SHORT).show();
 
@@ -90,11 +97,8 @@ public class citasAdapter extends BaseAdapter {
 
 
 
-
-
-
         TextView description = (TextView) v.findViewById(R.id.tvContenido);
-        description.setText(dir.getCiNota());
+        description.setText(getTipoCita(dir.getCiTipo()));
 
         TextView nombreMascota = (TextView) v.findViewById(R.id.tvNombreMascota);
         nombreMascota.setText("Mascota: "+dir.getMascota().getMasNombre());
@@ -106,5 +110,40 @@ public class citasAdapter extends BaseAdapter {
 
         return v;
     }
+
+    public String getTipoCita(int tipo) {
+        String tipoCita=null;
+       // "Consulta","Cirugía","Análisis","Reproducción","Estética","Radiografías","Vacunación"
+
+        switch (tipo){
+            case 0 :
+                tipoCita="Consulta";
+                break;
+            case 1 :
+                 tipoCita="Cirugía";
+                break;
+            case 2 :
+                 tipoCita="Análisis";
+                break;
+            case 3 :
+                tipoCita="Reproducción";
+                break;
+            case 4 :
+                tipoCita="Estética";
+                break;
+            case 5 :
+                tipoCita="Radiografías";
+                break;
+            case 6 :
+                tipoCita="Vacunación";
+                break;
+        }
+
+
+
+        return tipoCita;
+    }
+
+
 }
 

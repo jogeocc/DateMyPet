@@ -29,6 +29,9 @@ public class Success {
     @Json(name ="email")
     String email;
 
+    @Json(name ="remember_token")
+    String remember_token;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -63,6 +66,14 @@ public class Success {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getRemember_token() {
+        return remember_token;
+    }
+
+    public void setRemember_token(String remember_token) {
+        this.remember_token = remember_token;
     }
 
     public void setEmail(String email) {

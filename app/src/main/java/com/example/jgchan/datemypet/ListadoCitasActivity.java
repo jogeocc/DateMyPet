@@ -22,14 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jgchan.datemypet.adaptadores.citasAdapter;
-import com.example.jgchan.datemypet.adaptadores.mascotasAdapter;
 import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Cita;
 import com.example.jgchan.datemypet.entidades.Citas;
-import com.example.jgchan.datemypet.entidades.Mascota;
-import com.example.jgchan.datemypet.entidades.Mascotas;
 
 import java.util.List;
 
@@ -37,45 +34,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListaMascotasActivity extends MenuActivity{
+public class ListadoCitasActivity extends MenuActivity {
 
-
-    ListView lista_mascota;
-    List<Mascota> mascotas ;
-    private static final String TAG = "ListasMascotasctivity";
-    Call<Mascotas> call;
-    apiService service;
+    ListView lista_citas;
+    List<Cita> citas ;
+    private static final String TAG = "InicioActivity";
+    private TextView mensajeVacio,nombreUsuario, correoUsuario;
     private SwipeRefreshLayout lyRefresh;
+    private AccessToken datosAlamcenados;
+    FloatingActionButton fabAgregarCita;
+
+    Call<Citas> call;
+    apiService service;
     String id_user=null;
     private TokenManager tokenManager;
-    private TextView mensajeVacio,nombreUsuario, correoUsuario;
-    private AccessToken datosAlamcenados;
-    ProgressDialog progress;
-
+    public ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_mascotas);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setContentView(R.layout.activity_listado_citas);
 
         //RECUPERANDO DATOS DEL PREF
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         //PARSEARLO
         datosAlamcenados= tokenManager.getToken();
 
+        //ANEXANDO EL TOOLBAR
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevaMascota);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent i = new Intent(ListaMascotasActivity.this,CrearMascotactivity.class);
-                    startActivity(i);
-                    finish();
-            }
-        });
+        //ANEXANDO EL MENU DESPLEGABLE
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -99,17 +88,19 @@ public class ListaMascotasActivity extends MenuActivity{
 
         //ANEXANDO EL REFRRESH
 
-        lyRefresh = (SwipeRefreshLayout)findViewById(R.id.refreshListaMascota);
+        lyRefresh = (SwipeRefreshLayout)findViewById(R.id.refresh);
         lyRefresh.setColorSchemeResources(
                 R.color.colorAccent,
                 R.color.colorPrimary,
                 R.color.colorPrimaryDark);
 
-        mensajeVacio=(TextView)findViewById(R.id.tvMascotaVacio); //TEXTVIEW PARA DESPLEGAR QUE HAY DATOS
+        fabAgregarCita = (FloatingActionButton)findViewById(R.id.fabAgregarCita);
 
-        mensajeVacio.setVisibility(View.VISIBLE); //LO HACEMOS VISIBLE
+       mensajeVacio=(TextView)findViewById(R.id.tvCitasVacioIndex); //TEXTVIEW PARA DESPLEGAR QUE HAY DATOS
 
-        lista_mascota = (ListView)findViewById(R.id.lista_mascotas); //DAMOS DE ALTA EL CONTROLADOR LISTVIEW
+      mensajeVacio.setVisibility(View.VISIBLE); //LO HACEMOS VISIBLE
+
+        lista_citas = (ListView)findViewById(R.id.lista_citas); //DAMOS DE ALTA EL CONTROLADOR LISTVIEW
 
         service = RetrofitBuilder.createService(apiService.class); //HABILITAMOS EL SERVICIO DE PETICION
 
@@ -117,25 +108,17 @@ public class ListaMascotasActivity extends MenuActivity{
 
 
         //HABILITAMOS EL ONCLICK PARA CADA ITEM DE LA LISTVIEW
-        lista_mascota.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista_citas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
-                TextView idMascota =(TextView)view.findViewById(R.id.listIdMasc);
-                TextView nombreMascota =(TextView)view.findViewById(R.id.listNomMas);
-
-                String[] nombre = nombreMascota.getText().toString().split(":");
-
-                //Toast.makeText(ListaMascotasActivity.this, ""+idMascota.getText(), Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(ListaMascotasActivity.this, InfoMascotaActivity.class);
-                i.putExtra("idMascota",idMascota.getText());
-                i.putExtra("nombre",nombre[1]);
-                startActivity(i);
+                TextView tit =(TextView)view.findViewById(R.id.idCita);
+                Toast.makeText(ListadoCitasActivity.this, "Titulo: "+ tit.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        getMascotas(false);
+        citas(false);
 
 
         lyRefresh.setOnRefreshListener(
@@ -144,53 +127,58 @@ public class ListaMascotasActivity extends MenuActivity{
                     public void onRefresh() {
                         Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
 
-                        getMascotas(true); //Llamando al metodo que busca todas las citas
-
+                        citas(true); //Llamando al metodo que busca todas las citas
+                        lyRefresh.setRefreshing(false); //Terminando el refresh
                     }
                 }
         );
 
+        fabAgregarCita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ListadoCitasActivity.this, RegistroCitasActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
-    public  void  getMascotas(final boolean estaRefrescando){
+    private  void  citas(boolean estaRefrescando){
 
         if(!estaRefrescando) {
-            progress = new ProgressDialog(this);
+            progress = new ProgressDialog(ListadoCitasActivity.this);
             progress.setTitle("Cargando");
-            progress.setMessage("Buscando mascotas, por favor espere...");
+            progress.setMessage("Buscando citas, por favor espere...");
             progress.setCancelable(false);
             progress.show();
         }
 
 
-        call= service.mismascotas(
-                id_user
+        call= service.miscitascompletas(
+                ""+id_user
         );
 
-        call.enqueue(new Callback<Mascotas>() {
+        call.enqueue(new Callback<Citas>() {
             @Override
-            public void onResponse(Call<Mascotas> call, Response<Mascotas> response) {
-
+            public void onResponse(Call<Citas> call, Response<Citas> response) {
 
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    mascotas=response.body().getMascotas();
-                    mascotasAdapter adapter = new mascotasAdapter(ListaMascotasActivity.this, mascotas);
-                    if(mascotas.size()<=0){
-                        mensajeVacio.setVisibility(View.VISIBLE);
+                    citas=response.body().getCitas();
+                    citasAdapter adapter = new citasAdapter(ListadoCitasActivity.this, citas);
+                    if(citas.size()<=0){
+                       mensajeVacio.setVisibility(View.VISIBLE);
                     }else{
-                        mensajeVacio.setVisibility(View.INVISIBLE);
+                       mensajeVacio.setVisibility(View.INVISIBLE);
                     }
 
-                    lista_mascota.setAdapter(adapter);
-
-                    if(estaRefrescando) lyRefresh.setRefreshing(false); //Terminando el refresh
+                    lista_citas.setAdapter(adapter);
 
                 }else{
+                    Toast.makeText(ListadoCitasActivity.this, "Ocurrió un "+ response.message()+"\n "+response.code(), Toast.LENGTH_LONG).show();
+
                     progress.dismiss();
-                    if(estaRefrescando) lyRefresh.setRefreshing(false); //Terminando el refresh
                     if (response.code() == 421) {
                         //mensaje();
                         //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
@@ -209,12 +197,11 @@ public class ListaMascotasActivity extends MenuActivity{
             }
 
             @Override
-            public void onFailure(Call<Mascotas> call, Throwable t) {
+            public void onFailure(Call<Citas> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
                 progress.dismiss();
-
-                Toast.makeText(ListaMascotasActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ListadoCitasActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
                 //msjErrores("Error en la conexión");
             }
         });

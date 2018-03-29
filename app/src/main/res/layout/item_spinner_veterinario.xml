@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="85dp">
 
     <LinearLayout
         android:id="@+id/ItemVeterinario"
@@ -15,9 +15,8 @@
         <ImageView
             android:id="@+id/imgListVetLogo"
             android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:paddingLeft="5dp"
-            android:scaleType="fitCenter"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
             app:srcCompat="@drawable/iconoveterinario" />
 
         <LinearLayout
@@ -32,6 +31,7 @@
                 android:id="@+id/tvNombreVet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:lineSpacingMultiplier="1"
                 android:text="TextView"
                 android:textColor="@color/colorPrimaryDark"
@@ -42,30 +42,11 @@
                 android:id="@+id/tvNombreVeterinario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="TextView"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iconoLisVetTel"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    app:srcCompat="@drawable/telefono" />
-
-                <TextView
-                    android:id="@+id/tvTelVet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/iconoLisVetTel"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/iconoLisVetTel"
-                    android:text="Mascota: " />
-            </RelativeLayout>
 
             <TextView
                 android:id="@+id/idVeterinario"

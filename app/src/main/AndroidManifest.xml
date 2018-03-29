@@ -22,7 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -43,7 +50,14 @@
             android:name=".RegistroVacunasActivity"
             android:label="@string/title_activity_registro_vacunas"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".IngresarActivity" />
+        <activity android:name=".IngresarActivity">
+            <intent-filter>
+                <action android:name="com.example.jgchan.datemypet" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MenuActivity"
             android:label="Inicio"
@@ -104,11 +118,6 @@
             android:name=".InicioActivity"
             android:label="DateMyPet"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".VerVeterinarioActivity"
@@ -117,7 +126,13 @@
         <activity
             android:name=".EditarVeterinarioActivity"
             android:label="@string/title_activity_editar_veterinario"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListadoCitasActivity"
+            android:label="@string/title_activity_listado_citas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UnderTailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

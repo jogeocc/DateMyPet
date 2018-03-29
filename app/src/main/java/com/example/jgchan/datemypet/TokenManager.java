@@ -35,6 +35,7 @@ public class TokenManager {
         editor.putString("USER", token.getSuccess().getUsername()).commit();
         editor.putString("NAME", String.valueOf(token.getSuccess().getName())).commit();
         editor.putString("EMAIL", token.getSuccess().getEmail()).commit();
+        editor.putString("REMEMBER_TOKEN", token.getSuccess().getRemember_token()).commit();
     }
 
 
@@ -61,6 +62,10 @@ public class TokenManager {
         editor.remove("REFRESH_TOKEN").commit();
     }
 
+    public void deleteRemember(){
+        editor.remove("REMEMBER_TOKEN").commit();
+    }
+
     public void eliminoCuenta(){
         editor.remove("ACCESS_TOKEN").commit();
         editor.remove("REFRESH_TOKEN").commit();
@@ -77,6 +82,7 @@ public class TokenManager {
         token.setId_user(prefs.getString("ID", null));
         token.setName_user(prefs.getString("USER", null));
         token.setName(prefs.getString("NAME", null));
+        token.setRemember_token(prefs.getString("REMEMBER_TOKEN", null));
         token.setEmail(prefs.getString("EMAIL", null));
         return token;
     }

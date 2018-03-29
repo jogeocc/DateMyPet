@@ -12,6 +12,8 @@ public class Cita {
     private Integer idVeterinario;
     @Json(name = "ciFecha")
     private String ciFecha;
+    @Json(name = "ciHora")
+    private String ciHora;
     @Json(name = "ciTipo")
     private Integer ciTipo;
     @Json(name = "ciNota")
@@ -96,4 +98,12 @@ public class Cita {
         this.updatedAt = updatedAt;
     }
 
+
+    public String getCiHora() {
+        return ciHora;
+    }
+
+    public void setCiHora(String ciHora) {
+        this.ciHora = ciHora;
+    }
 }

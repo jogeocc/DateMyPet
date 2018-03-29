@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     progress.dismiss();
                     tokenManager.saveToken(response.body());
-                    startActivity(new Intent(LoginActivity.this, VeterinarioActivity.class));
+                    startActivity(new Intent(LoginActivity.this, InicioActivity.class));
                     finish();
                 }else{
 
@@ -160,6 +160,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.code() == 422) {
                         handleErrors(response.errorBody());
                     }
+
+                    if (response.code() == 403) {
+                        Toast.makeText(LoginActivity.this, "Cuenta no activa", Toast.LENGTH_LONG).show();
+                    }
+
                     if (response.code() == 401) {
                         ApiError apiError = Utils.converErrors(response.errorBody());
                         Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
