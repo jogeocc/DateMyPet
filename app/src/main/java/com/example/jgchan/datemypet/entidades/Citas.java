@@ -12,6 +12,17 @@ public class Citas {
         return citas;
     }
 
+    @Json(name = "cita")
+    private Cita cita;
+
+    public Cita getCita() {
+        return cita;
+    }
+
+    public void setCita(Cita cita) {
+        this.cita = cita;
+    }
+
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
     }

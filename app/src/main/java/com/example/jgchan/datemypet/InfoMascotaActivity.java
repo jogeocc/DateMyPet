@@ -43,6 +43,7 @@ public class InfoMascotaActivity extends AppCompatActivity {
     apiService service;
     ImageView fotoMascota;
     String respuesta;
+    int donde;
     TextView tvVerMasTipo,tvVerMasSexo,tvVerMasEdad,tvVerMasSenPart,tvVerMasHobbie;
     ProgressDialog progress;
     FloatingActionButton eliminarMascota;
@@ -89,6 +90,7 @@ public class InfoMascotaActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         idMascota=extras.getString("idMascota");
         nombre=extras.getString("nombre");
+        donde=extras.getInt("donde");
 
         this.setTitle(nombre);
 
@@ -332,11 +334,13 @@ public class InfoMascotaActivity extends AppCompatActivity {
         }
 
     }
+
+
     public void msjExito(String respuesta) {
         progress.dismiss();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡FELICIDADES!")
+        builder.setTitle("Mensaje")
                 .setMessage(respuesta)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -351,4 +355,20 @@ public class InfoMascotaActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Intent i;
+        if(donde==0)
+            i = new Intent(InfoMascotaActivity.this, InicioActivity.class );
+        else
+            i = new Intent(InfoMascotaActivity.this, ListaMascotasActivity.class );
+        startActivity(i);
+
+        super.onBackPressed();
+    }
+
+
 }

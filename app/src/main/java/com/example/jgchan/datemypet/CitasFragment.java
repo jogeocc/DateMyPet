@@ -2,6 +2,7 @@ package com.example.jgchan.datemypet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -85,7 +86,12 @@ public class CitasFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
                 TextView tit =(TextView)view.findViewById(R.id.idCita);
-                Toast.makeText(getActivity(), "Titulo: "+ tit.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getContext(), VerCitaActivity.class);
+                i.putExtra("idCita",tit.getText().toString());
+                i.putExtra("donde",0);
+                startActivity(i);
+                getActivity().finish();
 
             }
         });
@@ -128,10 +134,6 @@ public class CitasFragment extends Fragment {
             @Override
             public void onResponse(Call<Citas> call, Response<Citas> response) {
 
-                //progress.dismiss();
-                // Toast.makeText(IngresarActivity.this, "Codigo: "+response.body().getAccessToken() , Toast.LENGTH_LONG).show();
-                //Toast.makeText(MenuActivity.this, "Codigo: "+response , Toast.LENGTH_LONG).show();
-                //return;
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
                     progress.dismiss();
@@ -147,19 +149,7 @@ public class CitasFragment extends Fragment {
 
                 }else{
                     progress.dismiss();
-                    if (response.code() == 421) {
-                        //mensaje();
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
-                    }
-                    if (response.code() == 420) {
-                        //handleErrors(response.errorBody());
-                        //Toast.makeText(IngresarActivity.this, "Credenciales no correspondientes", Toast.LENGTH_LONG).show();
-                    }
-                    if (response.code() == 401) {
-                        // ApiError apiError = Utils.converErrors(response.errorBody());
-                        //handleErrors(response.errorBody());
-                        //
-                    }
+
                 }
 
             }

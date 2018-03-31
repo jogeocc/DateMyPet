@@ -127,7 +127,6 @@ public class InicioActivity extends MenuActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 posicion = tab.getPosition();
-              //  Toast.makeText(InicioActivity.this, "posicion: "+posicion, Toast.LENGTH_SHORT).show();
                 cambiarFabButton(fab, posicion);
             }
 

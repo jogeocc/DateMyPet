@@ -87,13 +87,14 @@ public class MascotasFragment extends Fragment {
                 TextView idMascota =(TextView)view.findViewById(R.id.listIdMasc);
                 TextView nombreMascota =(TextView)view.findViewById(R.id.listNomMas);
 
-                String[] nombre = nombreMascota.getText().toString().split(":");
+                String nombre = nombreMascota.getText().toString();
 
-                //Toast.makeText(ListaMascotasActivity.this, ""+idMascota.getText(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getContext(), InfoMascotaActivity.class);
                 i.putExtra("idMascota",idMascota.getText());
-                i.putExtra("nombre",nombre[1]);
+                i.putExtra("nombre",nombre);
+                i.putExtra("donde",0);
                 startActivity(i);
+                getActivity().finish();
 
             }
         });

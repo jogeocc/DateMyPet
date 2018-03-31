@@ -172,5 +172,27 @@ public interface apiService {
             @Field("ciNota") String ciNota);
 
 
+    @GET("citas/{idCita}/editar")
+    Call<Citas> visualizarEditarCita(
+            @Path("idCita") String idCita);
 
+    @GET("citas/{idCita}/visualizar")
+    Call<Citas> visualizarCita(
+            @Path("idCita") String idCita);
+
+
+    @PUT("citas/{idCita}/actualizar")
+    @FormUrlEncoded
+    Call<Success> actualizarCita(
+            @Path("idCita") String idCita,
+            @Field("idMascota") String idMascota,
+            @Field("idVeterinario") String idVeterinario,
+            @Field("ciFecha") String ciFecha,
+            @Field("ciHora") String ciHora,
+            @Field("ciTipo") String ciTipo,
+            @Field("ciNota") String ciNota);
+
+    @GET("citas/{idCita}/eliminar")
+    Call<Success> eliminarCita(
+            @Path("idCita") String idCita);
 }

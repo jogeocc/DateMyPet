@@ -2,6 +2,11 @@ package com.example.jgchan.datemypet.entidades;
 
 import com.squareup.moshi.Json;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 public class Cita {
 
     @Json(name = "id")
@@ -22,9 +27,10 @@ public class Cita {
     private Object createdAt;
     @Json(name = "updated_at")
     private Object updatedAt;
-
     @Json(name = "mascota")
     private Mascota mascota;
+    @Json(name = "veterinario")
+    private Veterinario veterinario =null;
 
     public Mascota getMascota() {
         return mascota;
@@ -32,6 +38,10 @@ public class Cita {
 
     public void setMascota(Mascota mascota) {
         this.mascota = mascota;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
     }
 
     public Integer getId() {
@@ -106,4 +116,67 @@ public class Cita {
     public void setCiHora(String ciHora) {
         this.ciHora = ciHora;
     }
+
+    public String getTipoCita() {
+        String tipoCita="";
+        switch (getCiTipo()){
+            case 0 :
+                tipoCita="Consulta";
+                break;
+            case 1 :
+                tipoCita="Cirugía";
+                break;
+            case 2 :
+                tipoCita="Análisis";
+                break;
+            case 3 :
+                tipoCita="Reproducción";
+                break;
+            case 4 :
+                tipoCita="Estética";
+                break;
+            case 5 :
+                tipoCita="Radiografías";
+                break;
+            case 6 :
+                tipoCita="Vacunación";
+                break;
+        }
+
+        return tipoCita;
+    }
+
+    public String parseFecha() {
+        String fechaNormal="";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoNormal = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date fechaDelServer = formatter.parse(this.getCiFecha());
+            fechaNormal = formatoNormal.format(fechaDelServer);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return  fechaNormal;
+    }
+
+
+    public String parseHora() {
+        String horaNormal="";
+        SimpleDateFormat formatoHoraServer = new SimpleDateFormat("H:mm:ss");
+        SimpleDateFormat formatoHoraNormal = new SimpleDateFormat("h:mm a");
+
+
+        try {
+            Date horaDeLaCita  = formatoHoraServer.parse(this.getCiHora());
+            horaNormal = formatoHoraNormal.format(horaDeLaCita);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return  horaNormal;
+    }
+
+
+
 }

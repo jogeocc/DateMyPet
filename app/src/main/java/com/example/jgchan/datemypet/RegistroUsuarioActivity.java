@@ -28,6 +28,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.Letrero;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.io.IOException;
@@ -44,11 +45,14 @@ import retrofit2.Response;
 
 public class RegistroUsuarioActivity extends AppCompatActivity {
 
+    Letrero objLetrero;
+
     private EditText txtNombre, txtDireccion, txtTelefono, txtCelular, txtCorreo;
     String nombre_usuario, contrasenia, nombre,direccion, telefono,celular, correo;
     apiService service;
     Call<ParseoToken> call;
     private static final String TAG = "RegistroActivity";
+    final String msjDialogError = "La cuenta no se pudo crear";
     ProgressDialog progress;
 
     TokenManager tokenManager;
@@ -58,6 +62,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
+
+        objLetrero = new Letrero(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -94,14 +101,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     public  void  registrar_click(View v){
 
             if(validar()){
-               progress = new ProgressDialog(this);
-                progress.setTitle("Cargando");
-                progress.setMessage("Registrando datos, por favor espere...");
-                progress.setCancelable(false);
-                progress.show();
-
-               registrar();
-
+              progress= objLetrero.msjCargando("Registrando datos, por favor espere...");
+              progress.show();
+              registrar();
             }
     }
 
@@ -141,7 +143,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
                 }else{
                     try{
-                        handleErrors(response.errorBody() );
+                        objLetrero.handleErrors(response.errorBody(),msjDialogError,progress );
                     }catch (Exception e){
                         Toast.makeText(RegistroUsuarioActivity.this, "Codigo: "+response.code()+" mensaje: "+response.message(), Toast.LENGTH_SHORT).show();
                     }
@@ -152,9 +154,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ParseoToken> call, Throwable t) {
-                Log.w(TAG,"onFailure: "+t.getMessage());
-                progress.dismiss();
-                Toast.makeText(RegistroUsuarioActivity.this, "Lo sentimos ocurrio un error", Toast.LENGTH_SHORT).show();
+                    objLetrero.msjErrorCarga(progress);
             }
         });
     }
@@ -174,56 +174,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void msjErrores(String Error) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡UPPS!")
-                .setMessage("La cuenta no se pudo registrar por los siguientes motivos: \n\n"+Error+"")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
 
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void handleErrors(ResponseBody response){
-        progress.dismiss();
-        String errores="";
-
-        ApiError apiError = Utils.converErrors(response);
-
-        for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
-            if (error.getKey().equals("username")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("nombre")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("correo")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("direccion")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("password")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("celular")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-        }
-
-        msjErrores(errores);
-
-
-    }
 
     @Override
     protected void onDestroy() {

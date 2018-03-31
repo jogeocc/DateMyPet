@@ -138,4 +138,6 @@
     <string name="title_activity_ver_veterinario">El veterinario</string>
     <string name="title_activity_editar_veterinario">Editar Veterinario</string>
     <string name="title_activity_listado_citas">Mis Citas</string>
+    <string name="title_activity_actualizar_citas">Editanto Cita</string>
+    <string name="title_activity_ver_cita">Ver Cita</string>
 </resources>

@@ -83,10 +83,10 @@ public class mascotasAdapter extends BaseAdapter {
 
         final Mascota mas = items.get(position);
 
-        tvNombreMascota.setText("Nombre: "+mas.getMasNombre());
-        tvSexMas.setText("Sexo: "+mas.getMasSexo());
-        tvEdadMas.setText("Edad: "+mas.getMasEdad());
-        tvRazaView.setText("Raza: "+mas.getMasRaza());
+        tvNombreMascota.setText(mas.getMasNombre());
+        tvSexMas.setText(mas.getMasSexo());
+        tvEdadMas.setText(""+mas.getMasEdad());
+        tvRazaView.setText(mas.getMasRaza());
         idMascota.setText(""+mas.getId());
 
 

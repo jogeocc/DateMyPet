@@ -113,8 +113,10 @@ public class ListadoCitasActivity extends MenuActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
                 TextView tit =(TextView)view.findViewById(R.id.idCita);
-                Toast.makeText(ListadoCitasActivity.this, "Titulo: "+ tit.getText().toString(), Toast.LENGTH_SHORT).show();
-
+                Intent i = new Intent(ListadoCitasActivity.this, VerCitaActivity.class);
+                i.putExtra("idCita",tit.getText().toString());
+                i.putExtra("donde",1);
+                startActivityForResult(i,0);
             }
         });
 
