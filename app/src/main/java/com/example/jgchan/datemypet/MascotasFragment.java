@@ -1,16 +1,21 @@
 package com.example.jgchan.datemypet;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +38,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
+@SuppressLint("ValidFragment")
 public class MascotasFragment extends Fragment {
 
     ListView lista_mascota;
@@ -48,6 +54,12 @@ public class MascotasFragment extends Fragment {
     private TokenManager tokenManager;
     ProgressDialog progress;
 
+    FloatingActionButton fab;
+
+    @SuppressLint("ValidFragment")
+    public MascotasFragment(FloatingActionButton fab) {
+        this.fab = fab;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +109,34 @@ public class MascotasFragment extends Fragment {
                 getActivity().finish();
 
             }
+        });
+
+
+        lista_mascota.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem > 0)
+                    // Puedes ocultarlo simplemente
+                    //fab.hide();
+                    // o añadir la animación deseada
+                    fab.animate().translationY(fab.getHeight() +
+                            getResources().getDimension(R.dimen.fab_margin))
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+                else if (firstVisibleItem == 0)
+                    //fab.show();
+                    fab.animate().translationY(0)
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+            }
+
         });
 
         getMascotas(false);

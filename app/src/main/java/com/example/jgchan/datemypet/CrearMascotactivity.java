@@ -132,8 +132,6 @@ public class CrearMascotactivity extends MenuActivity {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_ARCHIVOS);
             }
-        } else{
-            //para versiones inferiores a android 6.0.
         }
         //----------------------------------------------------------------------------
 

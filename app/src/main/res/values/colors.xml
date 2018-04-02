@@ -8,5 +8,9 @@
     <color name="ucrop_color_toolbar">#49932c</color>
     <color name="CropFrameColor">#36791d</color>
 
+    <color name="button_normal">#3cc13c</color>
+    <color name="button_pressed">#58ca58</color>
+    <color name="dialog_divider">#dfb920</color>
+
 
 </resources>

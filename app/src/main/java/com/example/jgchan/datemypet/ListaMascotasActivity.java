@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +32,7 @@ import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Cita;
 import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Letrero;
 import com.example.jgchan.datemypet.entidades.Mascota;
 import com.example.jgchan.datemypet.entidades.Mascotas;
 
@@ -51,6 +56,8 @@ public class ListaMascotasActivity extends MenuActivity{
     private TextView mensajeVacio,nombreUsuario, correoUsuario;
     private AccessToken datosAlamcenados;
     ProgressDialog progress;
+    FloatingActionButton fab;
+    Letrero objLetrero = new Letrero(this);
 
 
     @Override
@@ -67,7 +74,7 @@ public class ListaMascotasActivity extends MenuActivity{
         datosAlamcenados= tokenManager.getToken();
 
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevaMascota);
+        fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevaMascota);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +144,74 @@ public class ListaMascotasActivity extends MenuActivity{
             }
         });
 
+        lista_mascota.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem > 0)
+                    // Puedes ocultarlo simplemente
+                    //fab.hide();
+                    // o añadir la animación deseada
+                    fab.animate().translationY(fab.getHeight() +
+                            getResources().getDimension(R.dimen.fab_margin))
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+                else if (firstVisibleItem == 0)
+                    //fab.show();
+                    fab.animate().translationY(0)
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+            }
+
+        });
+
+
+        lista_mascota.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+               final TextView idMascota =(TextView)view.findViewById(R.id.listIdMasc);
+               final TextView nombreMascota =(TextView)view.findViewById(R.id.listNomMas);
+                TextView letrero =(TextView)view.findViewById(R.id.tvLetreroItemNomMas);
+
+
+
+                PopupMenu popup = new PopupMenu(ListaMascotasActivity.this, letrero);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.menu_popup_vac_y_his, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent i;
+
+                        switch (item.getItemId()) {
+                            case R.id.popup_vacunas:
+                                    i = new Intent(ListaMascotasActivity.this, VerVacunasActivity.class);
+                                    i.putExtra("idMascota",idMascota.getText().toString());
+                                    i.putExtra("donde",1);
+                                    startActivity(i);
+                            break;
+
+                            case R.id.popup_historial:
+
+
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+                return true;
+            }
+        });
+
         getMascotas(false);
 
 
@@ -158,10 +233,7 @@ public class ListaMascotasActivity extends MenuActivity{
     public  void  getMascotas(final boolean estaRefrescando){
 
         if(!estaRefrescando) {
-            progress = new ProgressDialog(this);
-            progress.setTitle("Cargando");
-            progress.setMessage("Buscando mascotas, por favor espere...");
-            progress.setCancelable(false);
+            progress = objLetrero.msjCargando("Buscando mascotas, por favor espere...");
             progress.show();
         }
 
@@ -191,7 +263,7 @@ public class ListaMascotasActivity extends MenuActivity{
                     if(estaRefrescando) lyRefresh.setRefreshing(false); //Terminando el refresh
 
                 }else{
-                    progress.dismiss();
+                    objLetrero.msjErrorCarga(progress);
                     if(estaRefrescando) lyRefresh.setRefreshing(false); //Terminando el refresh
                     if (response.code() == 421) {
                         //mensaje();
@@ -214,10 +286,7 @@ public class ListaMascotasActivity extends MenuActivity{
             public void onFailure(Call<Mascotas> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
-                progress.dismiss();
-
-                Toast.makeText(ListaMascotasActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
-                //msjErrores("Error en la conexión");
+                objLetrero.msjErrorCarga(progress);
             }
         });
     }

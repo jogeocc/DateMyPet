@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -118,6 +120,30 @@ public class ListadoCitasActivity extends MenuActivity {
                 i.putExtra("donde",1);
                 startActivityForResult(i,0);
             }
+        });
+
+        lista_citas.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem > 0)
+                    // Puedes ocultarlo simplemente
+                    //fab.hide();
+                    // o añadir la animación deseada
+                    fabAgregarCita.animate().translationY(fabAgregarCita.getHeight() +
+                            getResources().getDimension(R.dimen.fab_margin))
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+                else if (firstVisibleItem == 0)
+                    //fab.show();
+                    fabAgregarCita.animate().translationY(0)
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+            }
+
         });
 
         citas(false);

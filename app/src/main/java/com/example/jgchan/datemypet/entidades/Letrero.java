@@ -85,6 +85,22 @@ public class Letrero {
             if (error.getKey().equals("celular")){
                 errores+="- "+error.getValue().get(0)+"\n";
             }
+
+            if (error.getKey().equals("idMascota")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("vaNombre")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("vaFecha")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("vaNota")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
         }
 
         msjErrores(msj,errores);
@@ -133,6 +149,23 @@ public class Letrero {
                     public void onClick(DialogInterface dialog, int id) {
 
                            activity.onBackPressed();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    public void msjExitoSinRet (String respuesta, ProgressDialog progress) {
+        progress.dismiss();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
                     }
                 });
         AlertDialog alert = builder.create();

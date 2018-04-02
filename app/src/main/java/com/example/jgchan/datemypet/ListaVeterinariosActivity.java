@@ -23,6 +23,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -61,6 +63,7 @@ public class ListaVeterinariosActivity extends MenuActivity {
     String id_user = null;
     private TokenManager tokenManager;
     ProgressDialog progress;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +115,7 @@ public class ListaVeterinariosActivity extends MenuActivity {
                 R.color.colorPrimary,
                 R.color.colorPrimaryDark);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevoVeterinario);
+        fab = (FloatingActionButton) findViewById(R.id.fabCrearNuevoVeterinario);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,6 +190,30 @@ public class ListaVeterinariosActivity extends MenuActivity {
                 popup.show(); //showing popup menu
                 return true;
             }
+        });
+
+        lista_veterinario.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem > 0)
+                    // Puedes ocultarlo simplemente
+                    //fab.hide();
+                    // o añadir la animación deseada
+                    fab.animate().translationY(fab.getHeight() +
+                            getResources().getDimension(R.dimen.fab_margin))
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+                else if (firstVisibleItem == 0)
+                    //fab.show();
+                    fab.animate().translationY(0)
+                            .setInterpolator(new LinearInterpolator())
+                            .setDuration(100); // Cambiar al tiempo deseado
+            }
+
         });
 
         getVeterinarios(false);

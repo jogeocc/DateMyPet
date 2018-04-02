@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.jgchan.datemypet.RegistroVacunasActivity"
-    tools:showIn="@layout/app_bar_registro_vacunas">
+    tools:context="com.example.jgchan.datemypet.EditarVacunaActivity"
+    tools:showIn="@layout/app_bar_editar_vacuna">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:theme="@style/TextLabel">
 
                 <EditText
-                    android:id="@+id/edtCrearNomVac"
+                    android:id="@+id/edtEditarNomVac"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -108,7 +108,7 @@
                 android:theme="@style/TextLabel">
 
                 <EditText
-                    android:id="@+id/edtCrearNotaVac"
+                    android:id="@+id/edtEditarNotaVac"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -121,7 +121,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btnAgregarVacuna"
+                android:id="@+id/btnEditarVacuna"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,12 +129,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:background="@color/colorAccent"
-                android:text="AGREGAR"
+                android:text="@string/editar"
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
 
 
         </LinearLayout>
     </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

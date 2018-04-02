@@ -50,10 +50,6 @@
                 android:id="@+id/nav_acerca"
                 android:icon="@android:drawable/ic_menu_help"
                 android:title="Acerda De" />
-            <item
-                android:id="@+id/nav_hack"
-                android:icon="@drawable/ic_acerca_game"
-                android:title="MissingN0." />
         </menu>
     </item>
 
@@ -63,6 +59,10 @@
                 android:id="@+id/nav_salir"
                 android:icon="@drawable/ic_action_salir"
                 android:title="Salir" />
+
+            <item
+                android:id="@+id/nav_hack"
+                android:title=" "/>
         </menu>
     </item>
 

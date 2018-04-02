@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class InicioActivity extends MenuActivity {
     private AccessToken datosAlamcenados;
     private TokenManager tokenManager;
     int posicion=0;
+    FloatingActionButton fab;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -104,7 +106,7 @@ public class InicioActivity extends MenuActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-       final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,6 +146,9 @@ public class InicioActivity extends MenuActivity {
         });
 
 
+
+
+
     }
 
 
@@ -155,14 +160,23 @@ public class InicioActivity extends MenuActivity {
             case 0:
 
                 fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-
+                mostrarFab(fab);
                 break;
 
             case 1:
                 fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+                mostrarFab(fab);
                 break;
 
         }
+
+    }
+
+    private void mostrarFab(FloatingActionButton fab) {
+
+        fab.animate().translationY(0)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(100); // Cambiar al tiempo deseado
 
     }
 
@@ -217,11 +231,11 @@ public class InicioActivity extends MenuActivity {
             switch (position){
 
                 case 0:
-                        CitasFragment fragmentCitas = new CitasFragment();
+                        CitasFragment fragmentCitas = new CitasFragment(fab);
                         return fragmentCitas;
 
                 case 1:
-                        MascotasFragment fragmentMasco = new MascotasFragment();
+                        MascotasFragment fragmentMasco = new MascotasFragment(fab);
                        return  fragmentMasco;
 
             }

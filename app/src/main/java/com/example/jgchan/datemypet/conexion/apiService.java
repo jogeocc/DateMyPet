@@ -7,6 +7,7 @@ import com.example.jgchan.datemypet.entidades.Mascotas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
+import com.example.jgchan.datemypet.entidades.Vacunas;
 import com.example.jgchan.datemypet.entidades.Veterinario;
 import com.example.jgchan.datemypet.entidades.Veterinarios;
 
@@ -195,4 +196,22 @@ public interface apiService {
     @GET("citas/{idCita}/eliminar")
     Call<Success> eliminarCita(
             @Path("idCita") String idCita);
+
+
+    @POST("vacuna/crear/nueva")
+    @FormUrlEncoded
+    Call<Success> registrarVacuna(
+            @Field("idMascota") String idMascota,
+            @Field("vaNombre") String vaNombre,
+            @Field("vaFecha") String vaFecha,
+            @Field("vaNota") String vaNota);
+
+    @GET("mascota/{idMascota}/vacunas")
+    Call<Vacunas> verListadoVacuna(
+            @Path("idMascota") String idMascota);
+
+    @GET("vacuna/{idVacuna}/eliminar")
+    Call<Success> eliminarVacuna(
+            @Path("idVacuna") String idVacuna);
+
 }
