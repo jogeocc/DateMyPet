@@ -51,9 +51,9 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
     private AccessToken datosAlamcenados;
 
     Call<Citas> call;
-    apiService service;
-    String id_user=null;
-    private TokenManager tokenManager;
+    public apiService service;
+    public String id_user=null;
+    public TokenManager tokenManager;
     public ProgressDialog progress;
 
     @SuppressLint("ResourceAsColor")

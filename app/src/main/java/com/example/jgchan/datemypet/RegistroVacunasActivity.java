@@ -71,6 +71,7 @@ public class RegistroVacunasActivity extends MenuActivity {
     Call<Success> callRegistroVacuna;
 
     Letrero objLetrero;
+    ActualizarCitasActivity actActCita = new ActualizarCitasActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +166,6 @@ public class RegistroVacunasActivity extends MenuActivity {
 
         getMascotas();
 
-
     }
 
     private void registrarVacuna() {
@@ -258,6 +258,13 @@ public class RegistroVacunasActivity extends MenuActivity {
                     spinnerListadoMascota = (Spinner) findViewById(R.id.spnIdMascota);
                     spinnerMascAdapter adapter = new spinnerMascAdapter(RegistroVacunasActivity.this, R.layout.itemsinnermasc, nombresMas,fotosMas,idsMas);
                     spinnerListadoMascota.setAdapter(adapter);
+
+                    Bundle extras = getIntent().getExtras();
+                    if(extras!=null){
+                        int idMascota = Integer.parseInt(extras.getString("idMascota"));
+                        Log.d("idMandado",""+idMascota);
+                        spinnerListadoMascota.setSelection(actActCita.getSelectIdMascota(idMascota,mascotas,idsMas));
+                    }
 
                   progress.dismiss();
 

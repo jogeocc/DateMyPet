@@ -125,8 +125,9 @@ public class VerVacunasActivity extends MenuActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              Intent i = new Intent(VerVacunasActivity.this,RegistroVacunasActivity.class);
+              i.putExtra("idMascota",idMascota);
+              startActivity(i);
             }
         });
 
@@ -229,6 +230,10 @@ public class VerVacunasActivity extends MenuActivity {
                         switch (item.getItemId()) {
                             case R.id.popup_menu_editar_vac:
 
+                                    i = new Intent(VerVacunasActivity.this, EditarVacunaActivity.class);
+                                    i.putExtra("idMascota",idMascota);
+                                    i.putExtra("idVacuna",idVacuna.getText().toString());
+                                    startActivityForResult(i,0);
 
                                 break;
 
@@ -350,11 +355,16 @@ public class VerVacunasActivity extends MenuActivity {
                if(estaRefrescando) lyRefresh.setRefreshing(false); //Terminando el refresh
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if(requestCode == 0 && resultCode == RESULT_OK){
+                getVacunas(false);
+        }
 
 
     }
-
 
 }

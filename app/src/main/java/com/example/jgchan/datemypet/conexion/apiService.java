@@ -10,9 +10,11 @@ import com.example.jgchan.datemypet.entidades.Usuarios;
 import com.example.jgchan.datemypet.entidades.Vacunas;
 import com.example.jgchan.datemypet.entidades.Veterinario;
 import com.example.jgchan.datemypet.entidades.Veterinarios;
+import com.facebook.stetho.inspector.network.ResponseBodyData;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -214,4 +216,22 @@ public interface apiService {
     Call<Success> eliminarVacuna(
             @Path("idVacuna") String idVacuna);
 
+    @GET("generar/{idMascota}/historial")
+    Call<ResponseBody> descargarPdf(
+            @Path("idMascota") String mascota);
+
+
+    @PUT("vacuna/{idVacuna}/actualizar")
+    @FormUrlEncoded
+    Call<Success> editarVacuna(
+            @Path("idVacuna") String idVacuna,
+            @Field("idMascota") String idMascota,
+            @Field("vaNombre") String vaNombre,
+            @Field("vaFecha") String vaFecha,
+            @Field("vaNota") String vaNota);
+
+    @GET("vacuna/{idVacuna}/visualizar")
+    Call<Vacunas> verVacuna(
+        @Path("idVacuna") String idVacuna
+    );
 }

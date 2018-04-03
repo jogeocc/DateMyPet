@@ -303,9 +303,9 @@ public class ActualizarCitasActivity extends MenuActivity {
                    cita = response.body().getCita();
 
 
-                    spinnerEditListadoMascota.setSelection(getSelectIdMascota(cita.getIdMascota()));
+                    spinnerEditListadoMascota.setSelection(getSelectIdMascota(cita.getIdMascota(),mascotas,idsMas));
                     spinnerEditListadoVeterinario.setSelection(getSelectIdVeterinario(cita.getIdVeterinario()));
-                    setearFecha(cita.getCiFecha());
+                    setearFecha(cita.getCiFecha(),myCalendar);
                     seteaHora(cita.getCiHora());
                     edtEditNotaCita.setText(cita.getCiNota());
                     spnEditTipoCita.setSelection(cita.getCiTipo());
@@ -337,7 +337,7 @@ public class ActualizarCitasActivity extends MenuActivity {
         return posicion;
     }
 
-    private int getSelectIdMascota(Integer idMascota) {
+    public int getSelectIdMascota(Integer idMascota, List<Mascota> mascotas, String[] idsMas) {
         int posicion=0;
 
         for (posicion=0;posicion<mascotas.size(); posicion++){
@@ -355,7 +355,7 @@ public class ActualizarCitasActivity extends MenuActivity {
         actualizarEditTex();
     }
 
-    private void setearFecha(String ciFecha) {
+    public void setearFecha(String ciFecha, Calendar myCalendar) {
         String fecha[] = ciFecha.split("-");
         myCalendar.set(Calendar.YEAR,Integer.parseInt(fecha[0]));
         myCalendar.set(Calendar.MONTH,Integer.parseInt(fecha[1])-1);

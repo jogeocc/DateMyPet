@@ -15,6 +15,8 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by jgchan on 31/03/18.
  */
@@ -149,6 +151,26 @@ public class Letrero {
                     public void onClick(DialogInterface dialog, int id) {
 
                            activity.onBackPressed();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    public void msjExitoFinish(String respuesta, ProgressDialog progress) {
+        progress.dismiss();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Intent i = activity.getIntent();
+                        activity.setResult(RESULT_OK,i);
+                        activity.finish();
                     }
                 });
         AlertDialog alert = builder.create();

@@ -74,7 +74,7 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:id="@+id/edtCrearFechaVac"
+                        android:id="@+id/edtEditarFechaVac"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -91,7 +91,7 @@
 
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabCrearFechaVac"
+                    android:id="@+id/fabEditarFechaVac"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_weight="0"

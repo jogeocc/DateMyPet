@@ -3,11 +3,14 @@ package com.example.jgchan.datemypet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +22,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +33,22 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
+import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.ManejoArchivos;
+import com.example.jgchan.datemypet.entidades.Success;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.jgchan.datemypet.R.string.*;
 
@@ -48,8 +67,11 @@ public class InicioActivity extends MenuActivity {
     private SwipeRefreshLayout lyRefresh;
     private AccessToken datosAlamcenados;
     private TokenManager tokenManager;
+    Call<ResponseBody> descargar;
     int posicion=0;
     FloatingActionButton fab;
+    ManejoArchivos ma = new ManejoArchivos("",this);
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -133,21 +155,14 @@ public class InicioActivity extends MenuActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
+            public void onTabUnselected(TabLayout.Tab tab) {}
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
 
 
         });
 
-
-
-
+        service = RetrofitBuilder.createService(apiService.class); //HABILITAMOS EL SERVICIO DE PETICION
 
     }
 
@@ -248,5 +263,6 @@ public class InicioActivity extends MenuActivity {
         public int getCount() {
             return 2;
         }
+
     }
 }
