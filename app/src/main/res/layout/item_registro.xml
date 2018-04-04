@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingStart="5dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/imgListVac"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:foregroundGravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/historialmedico" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_marginLeft="6dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingRight="6dp">
+
+        <TextView
+            android:id="@+id/regMedFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLisRegMedPercanse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parvovirus"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="Atendido por:" />
+
+            <TextView
+                android:id="@+id/tvNombreVet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/idRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="8sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tvLisRegMedDescp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:lines="1"
+            android:textSize="8sp"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+</LinearLayout>

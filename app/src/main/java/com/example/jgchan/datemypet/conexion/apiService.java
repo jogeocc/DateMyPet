@@ -5,6 +5,7 @@ import com.example.jgchan.datemypet.entidades.Citas;
 import com.example.jgchan.datemypet.entidades.Mascota;
 import com.example.jgchan.datemypet.entidades.Mascotas;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
+import com.example.jgchan.datemypet.entidades.Registros;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
 import com.example.jgchan.datemypet.entidades.Vacunas;
@@ -234,4 +235,14 @@ public interface apiService {
     Call<Vacunas> verVacuna(
         @Path("idVacuna") String idVacuna
     );
+
+
+
+    @GET("historialmedico/{idHistorial}/registros")
+    Call<Registros> susRegistrosMedicos(
+            @Path("idHistorial") String idMascota
+    );
+
+
+
 }

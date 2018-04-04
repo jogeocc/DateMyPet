@@ -199,6 +199,11 @@ public class ListaMascotasActivity extends MenuActivity{
 
                             case R.id.popup_historial:
 
+                                    i = new Intent(ListaMascotasActivity.this, HistorialMedicoActivity.class);
+                                    i.putExtra("idMascota",idMascota.getText().toString());
+                                    i.putExtra("nombreMascota",nombreMascota.getText().toString());
+                                    i.putExtra("donde",1);
+                                    startActivity(i);
 
                                 break;
 

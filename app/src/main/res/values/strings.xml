@@ -80,4 +80,7 @@
     <string name="title_activity_ver_vacunas">Sus vacunas</string>
     <string name="title_activity_acerca_de">Nosotros...</string>
     <string name="title_activity_editar_vacuna">Editar Vacuna</string>
+    <string name="title_activity_historial">Historial Médico</string>
+    <string name="title_activity_historial_medico">Historial Médico</string>
+    <string name="tab_text_3">Tab 3</string>
 </resources>

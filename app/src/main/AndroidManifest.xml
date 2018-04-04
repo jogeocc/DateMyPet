@@ -151,7 +151,16 @@
         <activity
             android:name=".EditarVacunaActivity"
             android:label="@string/title_activity_editar_vacuna"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HistorialActivity"
+            android:label="@string/title_activity_historial"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HistorialMedicoActivity"
+            android:label="@string/title_activity_historial_medico"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".navegacionActivity"></activity>
     </application>
 
 </manifest>

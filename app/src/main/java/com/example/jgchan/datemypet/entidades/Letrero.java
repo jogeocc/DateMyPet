@@ -47,6 +47,24 @@ public class Letrero {
     }
 
 
+    public void msjErrorDescarga(ProgressDialog progress) {
+        progress.dismiss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡UPPS!")
+                .setMessage("No se pudo descargar el archivo, si el problema persiste contacte al administrador.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return;
+    }
+
+
 
     public ProgressDialog msjCargando(String msj){
         ProgressDialog progress = new ProgressDialog(activity);
@@ -153,6 +171,44 @@ public class Letrero {
                            activity.onBackPressed();
                     }
                 });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    public void msjExitoDescarga(String respuesta, final String Carpeta, final String nombreArchivo, final ManejoArchivos ma, ProgressDialog progress) {
+        progress.dismiss();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setNeutralButton("OK",null)
+                .setPositiveButton("Ver archivo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ma.verArchivo(Carpeta,nombreArchivo);
+                    }
+                })
+                .setNegativeButton("Compartir", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ma.compartirArchivo(Carpeta,nombreArchivo);
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void msjExitoSinNada(String respuesta, ProgressDialog progress) {
+        progress.dismiss();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(respuesta)
+                .setCancelable(false)
+                .setPositiveButton("OK", null);
         AlertDialog alert = builder.create();
         alert.show();
     }

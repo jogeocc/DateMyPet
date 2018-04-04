@@ -23,11 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jgchan.datemypet.adaptadores.citasAdapter;
+import com.example.jgchan.datemypet.adaptadores.registrosAdapter;
 import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Cita;
 import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Letrero;
+import com.example.jgchan.datemypet.entidades.Registro;
+import com.example.jgchan.datemypet.entidades.Registros;
 
 import java.util.List;
 
@@ -39,29 +43,28 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 @SuppressLint("ValidFragment")
-public class CitasFragment extends Fragment {
+public class RegistrosFragment extends Fragment {
 
-    ListView lista_citas;
-    List<Cita> citas ;
-    private static final String TAG = "InicioActivity";
-    private TextView mensajeVacio,nombreUsuario, correoUsuario;
-    private SwipeRefreshLayout lyRefresh;
-    private AccessToken datosAlamcenados;
+    ListView lista_registros;
+    private static final String TAG = "RegistroActivity";
+    String idMascota;
 
-    Call<Citas> call;
+    Call<Registros> call;
     apiService service;
-    String id_user=null;
-    private TokenManager tokenManager;
+    private TextView mensajeVacio;
+    private SwipeRefreshLayout lyRefresh;
     public ProgressDialog progress;
+    Letrero objLetrero;
+
+    List<Registro> registros;
 
     FloatingActionButton fab;
 
     @SuppressLint("ValidFragment")
-    public CitasFragment(FloatingActionButton fab) {
-        this.fab = fab;
-    }
-
-    public CitasFragment(FloatingActionButton fab, String idMascota) {
+    public RegistrosFragment(Letrero objLetrero, FloatingActionButton fab, String idMascota) {
+        this.objLetrero=objLetrero;
+        this.fab=fab;
+        this.idMascota = idMascota;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -69,12 +72,7 @@ public class CitasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_citas, container, false);
-
-        //RECUPERANDO DATOS DEL PREF
-        tokenManager = TokenManager.getInstance( this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
-        //PARSEARLO
-        datosAlamcenados= tokenManager.getToken();
+        View rootView = inflater.inflate(R.layout.fragment_registros, container, false);
 
 
 
@@ -85,36 +83,23 @@ public class CitasFragment extends Fragment {
                 R.color.colorPrimaryDark);
 
 
-        mensajeVacio = rootView.findViewById(R.id.tvCitasVacio);
-
-        mensajeVacio=(TextView)rootView.findViewById(R.id.tvCitasVacio); //TEXTVIEW PARA DESPLEGAR QUE HAY DATOS
+        mensajeVacio=(TextView)rootView.findViewById(R.id.tvRegistroVacio); //TEXTVIEW PARA DESPLEGAR QUE HAY DATOS
 
         mensajeVacio.setVisibility(rootView.VISIBLE); //LO HACEMOS VISIBLE
 
-        lista_citas = (ListView)rootView.findViewById(R.id.lista_citas); //DAMOS DE ALTA EL CONTROLADOR LISTVIEW
+        lista_registros = (ListView)rootView.findViewById(R.id.lista_registros); //DAMOS DE ALTA EL CONTROLADOR LISTVIEW
 
         service = RetrofitBuilder.createService(apiService.class); //HABILITAMOS EL SERVICIO DE PETICION
-
-        id_user=tokenManager.getToken().getId_user();
-
-
-        //HABILITAMOS EL ONCLICK PARA CADA ITEM DE LA LISTVIEW
-        lista_citas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                //HABILITAMOS EL ONCLICK PARA CADA ITEM DE LA LISTVIEW
+        lista_registros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
-                TextView tit =(TextView)view.findViewById(R.id.idCita);
-
-                Intent i = new Intent(getContext(), VerCitaActivity.class);
-                i.putExtra("idCita",tit.getText().toString());
-                i.putExtra("donde",0);
-                startActivity(i);
-                getActivity().finish();
 
             }
         });
 
-        lista_citas.setOnScrollListener(new AbsListView.OnScrollListener() {
+        lista_registros.setOnScrollListener(new AbsListView.OnScrollListener() {
 
 
             @Override
@@ -141,7 +126,7 @@ public class CitasFragment extends Fragment {
 
         });
 
-        citas(false);
+        registros(false);
 
 
         lyRefresh.setOnRefreshListener(
@@ -150,7 +135,7 @@ public class CitasFragment extends Fragment {
                     public void onRefresh() {
                         Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
 
-                        citas(true); //Llamando al metodo que busca todas las citas
+                        registros(true); //Llamando al metodo que busca todas las citas
                         lyRefresh.setRefreshing(false); //Terminando el refresh
                     }
                 }
@@ -160,37 +145,34 @@ public class CitasFragment extends Fragment {
     }
 
 
-    private  void  citas(boolean estaRefrescando){
+    private  void  registros(boolean estaRefrescando){
 
         if(!estaRefrescando) {
-            progress = new ProgressDialog(getContext());
-            progress.setTitle("Cargando");
-            progress.setMessage("Buscando citas, por favor espere...");
-            progress.setCancelable(false);
+            progress = objLetrero.msjCargando("Buscando historial médico, por favor espere...");
             progress.show();
         }
 
 
-        call= service.miscitas(
-                id_user
+        call= service.susRegistrosMedicos(
+                idMascota
         );
 
-        call.enqueue(new Callback<Citas>() {
+        call.enqueue(new Callback<Registros>() {
             @Override
-            public void onResponse(Call<Citas> call, Response<Citas> response) {
+            public void onResponse(Call<Registros> call, Response<Registros> response) {
 
                 Log.w(TAG, "onResponse: "+response);
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    citas=response.body().getCitas();
-                    citasAdapter adapter = new citasAdapter(getActivity(), citas);
-                    if(citas.size()<=0){
+                    registros=response.body().getRegistros();
+                    registrosAdapter adapter = new registrosAdapter(getActivity(), registros);
+                    if(registros.size()<=0){
                         mensajeVacio.setVisibility(View.VISIBLE);
                     }else{
                         mensajeVacio.setVisibility(View.INVISIBLE);
                     }
 
-                    lista_citas.setAdapter(adapter);
+                    lista_registros.setAdapter(adapter);
 
                 }else{
                     progress.dismiss();
@@ -200,11 +182,10 @@ public class CitasFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Citas> call, Throwable t) {
+            public void onFailure(Call<Registros> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
-                progress.dismiss();
-                Toast.makeText(getContext(), "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
+                objLetrero.msjErrorCarga(progress);
                 //msjErrores("Error en la conexión");
             }
         });
