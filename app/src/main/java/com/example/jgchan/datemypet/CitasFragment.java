@@ -48,6 +48,8 @@ public class CitasFragment extends Fragment {
     private SwipeRefreshLayout lyRefresh;
     private AccessToken datosAlamcenados;
 
+    int contadorErrores=0;
+
     Call<Citas> call;
     apiService service;
     String id_user=null;
@@ -162,12 +164,16 @@ public class CitasFragment extends Fragment {
 
     private  void  citas(boolean estaRefrescando){
 
-        if(!estaRefrescando) {
-            progress = new ProgressDialog(getContext());
-            progress.setTitle("Cargando");
-            progress.setMessage("Buscando citas, por favor espere...");
-            progress.setCancelable(false);
-            progress.show();
+
+        if(contadorErrores==0){
+            if(!estaRefrescando) {
+                progress = new ProgressDialog(getContext());
+                progress.setTitle("Cargando");
+                progress.setMessage("Buscando citas, por favor espere...");
+                progress.setCancelable(false);
+                progress.show();
+            }
+
         }
 
 
@@ -191,6 +197,7 @@ public class CitasFragment extends Fragment {
                     }
 
                     lista_citas.setAdapter(adapter);
+                    contadorErrores=0;
 
                 }else{
                     progress.dismiss();
@@ -203,9 +210,15 @@ public class CitasFragment extends Fragment {
             public void onFailure(Call<Citas> call, Throwable t) {
                 Log.w(TAG,"onFailure: "+t.getMessage());
 
-                progress.dismiss();
-                Toast.makeText(getContext(), "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
-                //msjErrores("Error en la conexión");
+                contadorErrores++;
+                if(contadorErrores==3){
+                    progress.dismiss();
+                    Toast.makeText(getContext(), "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
+                    contadorErrores=0;
+                }else{
+                    citas(false);
+                }
+
             }
         });
     }

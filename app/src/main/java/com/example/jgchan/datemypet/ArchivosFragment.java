@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
@@ -77,6 +79,39 @@ public class ArchivosFragment extends Fragment {
                     }
                 }
         );
+
+        lista_archivos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final TextView nombre =(TextView)view.findViewById(R.id.tvNombreArchivo);
+                final String nombreArchivo = nombre.getText().toString();
+
+
+                PopupMenu popup = new PopupMenu(getActivity(), nombre);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.popup_menu_archivos, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent i;
+
+                        switch (item.getItemId()) {
+                            case R.id.popup_compartir:
+                                    ma.compartirArchivo(idMascota+"-"+nombreMascota,nombreArchivo);
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+                return true;
+            }
+        });
 
         lista_archivos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

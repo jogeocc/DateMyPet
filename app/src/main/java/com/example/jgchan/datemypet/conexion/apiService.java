@@ -243,6 +243,16 @@ public interface apiService {
             @Path("idHistorial") String idMascota
     );
 
+    @POST("historialmedico/registro/nuevo")
+    @FormUrlEncoded
+    Call<Success> registrarRegMed(
+            @Field("idMascota") String idMascota,
+            @Field("idVeterinario") String idVeterinario,
+            @Field("regMedFecha") String regMedFecha,
+            @Field("regMedPercanse") String regMedPercanse,
+            @Field("regMedDescp") String regMedDescp);
+
+
 
 
 }

@@ -34,7 +34,7 @@
     <string name="title_activity_registro_citas">Registrar de citas</string>
     <string name="title_activity_registro_vacunas">Registro de vacunas</string>
     <string name="title_activity_ver_perfil">Mi perfil</string>
-    <string name="title_activity_editar_perfil">EditarPerfilActivity</string>
+    <string name="title_activity_editar_perfil">Editar Mi Perfil</string>
     <string name="title_activity_lista_mascotas">Mis Mascotas</string>
     <string name="title_activity_info_mascota">Información</string>
     <string name="UcropToolbarTitleText">Cortar Foto</string>
@@ -83,4 +83,5 @@
     <string name="title_activity_historial">Historial Médico</string>
     <string name="title_activity_historial_medico">Historial Médico</string>
     <string name="tab_text_3">Tab 3</string>
+    <string name="title_activity_registro_reg_medico">Agregar Registro Médico</string>
 </resources>

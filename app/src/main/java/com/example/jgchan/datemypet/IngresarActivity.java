@@ -18,6 +18,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.Letrero;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.util.List;
@@ -37,7 +38,8 @@ public class IngresarActivity extends AppCompatActivity {
     private static final String TAG = "IngresarActivity";
     Call<ParseoToken> call;
     ProgressDialog progress=null;
-
+    private String LAUNCH_FROM_URL="com.example.jgchan.datemypet";
+    Letrero objLetrero = new Letrero(this);
 
 
     @Override
@@ -58,6 +60,21 @@ public class IngresarActivity extends AppCompatActivity {
             startActivity(new Intent(IngresarActivity.this, InicioActivity.class));
             finish();
         }
+
+        Intent intent = getIntent();
+        if(intent != null){
+            if(intent.getAction()!=null){
+                if(intent.getAction().equals(LAUNCH_FROM_URL)){
+                    Bundle bundle = intent.getExtras();
+                    if(bundle != null){
+                        String nombreUsuario = bundle.getString("usuario");
+                        objLetrero.msjActivacionUsua(nombreUsuario);
+
+                        txtUsername.setText(nombreUsuario);
+                    }
+                }
+            }
+        }else
 
         if(tokenManager.getToken().getName_user()!=null){
             txtUsername.setText(tokenManager.getToken().getName_user());

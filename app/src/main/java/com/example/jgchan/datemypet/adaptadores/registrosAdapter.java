@@ -77,7 +77,7 @@ public class registrosAdapter extends BaseAdapter {
         vete.setText(""+reg.getVeterinario().getVetNombre());
 
         TextView descrip = (TextView)v.findViewById(R.id.tvLisRegMedDescp);
-        descrip.setText(""+reg.getId());
+        descrip.setText(""+reg.getRegMedDescp());
 
         return v;
     }

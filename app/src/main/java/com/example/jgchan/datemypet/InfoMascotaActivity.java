@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.jgchan.datemypet.conexion.RetrofitBuilder;
 import com.example.jgchan.datemypet.conexion.apiService;
+import com.example.jgchan.datemypet.entidades.Letrero;
 import com.example.jgchan.datemypet.entidades.Mascota;
 import com.example.jgchan.datemypet.entidades.Mascotas;
 import com.example.jgchan.datemypet.entidades.Success;
@@ -47,7 +48,9 @@ public class InfoMascotaActivity extends AppCompatActivity {
     TextView tvVerMasTipo,tvVerMasSexo,tvVerMasEdad,tvVerMasSenPart,tvVerMasHobbie;
     ProgressDialog progress;
     FloatingActionButton eliminarMascota;
+    Letrero objLetrero = new Letrero(this);
     boolean elimino=false;
+    int contadorErrores;
 
     Switch compartirPerfil;
 
@@ -215,12 +218,14 @@ public class InfoMascotaActivity extends AppCompatActivity {
     public  void  getInfoMascota(){
 
 
+        if(contadorErrores==0){
+            progress = new ProgressDialog(this);
+            progress.setTitle("Cargando");
+            progress.setMessage("Buscando mascota, por favor espere...");
+            progress.setCancelable(false);
+            progress.show();
+        }
 
-        progress = new ProgressDialog(this);
-        progress.setTitle("Cargando");
-        progress.setMessage("Buscando mascota, por favor espere...");
-        progress.setCancelable(false);
-        progress.show();
 
 
 
@@ -257,9 +262,7 @@ public class InfoMascotaActivity extends AppCompatActivity {
                         compartirPerfil.setChecked(false);
 
                 }else{
-                    progress.dismiss();
-                    Toast.makeText(InfoMascotaActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
-
+                    objLetrero.msjErrorCarga(progress);
                 }
 
             }
@@ -268,8 +271,11 @@ public class InfoMascotaActivity extends AppCompatActivity {
             public void onFailure(Call<Mascotas> call, Throwable t) {
                 //Log.w(TAG,"onFailure: "+t.getMessage());
 
-                progress.dismiss();
-                Toast.makeText(InfoMascotaActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
+                if(contadorErrores==3){
+                    objLetrero.msjErrorCarga(progress);
+                }
+
+                contadorErrores++;
 
             }
         });

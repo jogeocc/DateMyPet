@@ -160,7 +160,11 @@
             android:name=".HistorialMedicoActivity"
             android:label="@string/title_activity_historial_medico"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".navegacionActivity"></activity>
+        <activity android:name=".navegacionActivity" />
+        <activity
+            android:name=".RegistroRegMedicoActivity"
+            android:label="@string/title_activity_registro_reg_medico"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

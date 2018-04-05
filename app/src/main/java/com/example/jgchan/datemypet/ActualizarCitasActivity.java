@@ -230,17 +230,10 @@ public class ActualizarCitasActivity extends MenuActivity {
 
     private void actualizarCita() {
 
-
-        progress = new ProgressDialog(this);
-        progress.setTitle("Cargando");
-        progress.setMessage("Actualizando Cita...");
-        progress.setCancelable(false);
-        progress.show();
-
-        // @Field("ciFecha") String ciFecha,
-        // @Field("ciHora") String ciHora,
-        // @Field("ciTipo") String ciTipo,
-        // @Field("ciNota") String ciNota);
+        if (contadorErrores==0){
+            progress=objLetrero.msjCargando("Actualizando Cita...");
+            progress.show();
+        }
 
         callEditarCita= service.actualizarCita(
                 idCita,
@@ -258,18 +251,18 @@ public class ActualizarCitasActivity extends MenuActivity {
 
                 progress.dismiss();
                 if(response.isSuccessful()){
-                    progress.dismiss();
-                    respuesta=response.body().getSuccess();
-                    msjExito(respuesta);
 
+                    respuesta=response.body().getSuccess();
+                    objLetrero.msjExito(respuesta,progress);
+                    contadorErrores=0;
 
                 }else{
-                    progress.dismiss();
 
+                    contadorErrores=0;
                     if(response.code()==401){
-                        handleErrors(response.errorBody());
+                       objLetrero.handleErrors(response.errorBody(),"La cita no se pudo actualizar", progress);
                     }else {
-                        Log.e("Error Server",response.message()+ " "+response.code());
+                        objLetrero.msjErrorCargaSinNada(progress);
                     }
                 }
 
@@ -278,9 +271,13 @@ public class ActualizarCitasActivity extends MenuActivity {
             @Override
             public void onFailure(Call<Success> call, Throwable t) {
                 //Log.w(TAG,"onFailure: "+t.getMessage());
+                contadorErrores++;
+                if(contadorErrores==3) {
+                    objLetrero.msjErrorCargaSinNada(progress);
+                    contadorErrores = 0;
+                }
+                else actualizarCita();
 
-                progress.dismiss();
-                msjErrorCarga();
                // Toast.makeText(ActualizarCitasActivity.this, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
             }
         });
@@ -310,7 +307,7 @@ public class ActualizarCitasActivity extends MenuActivity {
                     edtEditNotaCita.setText(cita.getCiNota());
                     spnEditTipoCita.setSelection(cita.getCiTipo());
 
-
+                    contadorErrores=0;
                     progress.dismiss();
                 }else{
 
@@ -320,8 +317,13 @@ public class ActualizarCitasActivity extends MenuActivity {
 
             @Override
             public void onFailure(Call<Citas> call, Throwable t) {
+                contadorErrores++;
+                if(contadorErrores==3)
+                        objLetrero.msjErrorCarga(progress);
+                else
+                    getInfoCita();
 
-                objLetrero.msjErrorCarga(progress);
+
             }
         });
     }
@@ -403,11 +405,11 @@ public class ActualizarCitasActivity extends MenuActivity {
 
     public  void  getMascotas(){
 
-        progress = new ProgressDialog(this);
-        progress.setTitle("Cargando");
-        progress.setMessage("Por favor espere...");
-        progress.setCancelable(false);
-        progress.show();
+        if(contadorErrores==0){
+            progress = objLetrero.msjCargando("Por favor espere...");
+            progress.show();
+        }
+
 
         call= service.mismascotas(
                 id_user
@@ -444,9 +446,8 @@ public class ActualizarCitasActivity extends MenuActivity {
                     spinnerMascAdapter adapter = new spinnerMascAdapter(ActualizarCitasActivity.this, R.layout.itemsinnermasc, nombresMas,fotosMas,idsMas);
                     spinnerEditListadoMascota.setAdapter(adapter);
 
+                    contadorErrores=0;
                     getVeterinarios();
-
-                }else{
 
                 }
 
@@ -455,12 +456,12 @@ public class ActualizarCitasActivity extends MenuActivity {
             @Override
             public void onFailure(Call<Mascotas> call, Throwable t) {
 
+                contadorErrores++;
+                if(contadorErrores==3)
+                    objLetrero.msjErrorCarga(progress);
 
-                progress.dismiss();
+                else  getMascotas();
 
-                //Toast.makeText(ActualizarCitasActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
-                //msjErrores("Error en la conexión");
-                msjErrorCarga();
             }
         });
     }
@@ -558,6 +559,7 @@ public class ActualizarCitasActivity extends MenuActivity {
                                     idsVet);
                     spinnerEditListadoVeterinario.setAdapter(adapter);
 
+                    contadorErrores=0;
                     getInfoCita();
 
                 } else {
@@ -570,80 +572,17 @@ public class ActualizarCitasActivity extends MenuActivity {
             public void onFailure(Call<Veterinarios> call, Throwable t) {
                 //Log.w(TAG,"onFailure: "+t.getMessage());
 
-                progress.dismiss();
+                contadorErrores++;
 
-                //Toast.makeText(ActualizarCitasActivity.this, "Ocurrió un error intentelo mas tarde.", Toast.LENGTH_LONG).show();
-                //msjErrores("Error en la conexión");
-                msjErrorCarga();
+                if(contadorErrores==3)
+                    objLetrero.msjErrorCarga(progress);
+                else getVeterinarios();
             }
         });
 
 
     }
 
-    private void handleErrors(ResponseBody response){
-        progress.dismiss();
-        String errores="";
-
-        ApiError apiError = Utils.converErrors(response);
-
-
-        for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
-            if (error.getKey().equals("idMascota")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("idVeterinario")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("ciFecha")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("ciTipo")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-            if (error.getKey().equals("ciHora")){
-                errores+="- "+error.getValue().get(0)+"\n";
-            }
-
-        }
-
-        msjErrores(errores);
-
-
-    }
-
-    public void msjErrores(String Error) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡UPPS!")
-                .setMessage("La cita no se pudo actualizar por los siguientes motivos: \n\n"+Error+"")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-
-    public void msjErrorCarga() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡UPPS!")
-                .setMessage("Ha Ocurrido un error, si el problema persiste contacte al administrador.")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     public void msjExito(String respuesta) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -65,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Veterinaria"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Nombre del Veterinario"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorPrimaryDark" />
 
 
             </android.support.design.widget.TextInputLayout>
@@ -98,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Dirección"
-                    android:inputType="textPostalAddress" />
+                    android:inputType="textPostalAddress"
+                    android:textColor="@color/colorPrimaryDark" />
 
 
             </android.support.design.widget.TextInputLayout>
@@ -115,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Teléfono"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textColor="@color/colorPrimaryDark" />
 
 
             </android.support.design.widget.TextInputLayout>

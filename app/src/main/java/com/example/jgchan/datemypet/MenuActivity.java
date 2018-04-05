@@ -32,6 +32,7 @@ import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.Cita;
 import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Letrero;
 import com.example.jgchan.datemypet.entidades.ParseoToken;
 
 import java.util.ArrayList;
@@ -43,18 +44,23 @@ import retrofit2.Response;
 
 public class MenuActivity extends AppCompatActivity   implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView lista_citas;
+    public int contadorErrores=0;
+    public Letrero objLetrero = new Letrero(this);
     List<Cita> citas ;
     private static final String TAG = "InicioActivity";
-    private TextView mensajeVacio,nombreUsuario, correoUsuario;
+    private TextView mensajeVacio;
     private SwipeRefreshLayout lyRefresh;
-    private AccessToken datosAlamcenados;
 
     Call<Citas> call;
     public apiService service;
-    public String id_user=null;
+
+
+    String respuesta;
+    String id_user=null;
     public TokenManager tokenManager;
-    public ProgressDialog progress;
+    public TextView nombreUsuario, correoUsuario;
+    public AccessToken datosAlamcenados;
+    public  ProgressDialog progress;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -88,7 +94,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             if(!(this.getLocalClassName().equalsIgnoreCase("InicioActivity"))){
                 Intent i = new Intent(this,InicioActivity.class);
                 startActivity(i);
-                finish();
+
             }
 
         }else if(id == R.id.nav_perfil){
@@ -96,7 +102,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             if(!(this.getLocalClassName().equalsIgnoreCase("VerPerfilActivity"))){
                 Intent i = new Intent(this, VerPerfilActivity.class);
                 startActivity(i);
-                finish();
+
             }
 
         }else if (id == R.id.nav_mascota) {
@@ -104,7 +110,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             if(!(this.getLocalClassName().equalsIgnoreCase("ListaMascotasActivity"))){
                 Intent i = new Intent(this, ListaMascotasActivity.class);
                 startActivity(i);
-                finish();
+
             }
 
         }else if (id == R.id.nav_citas) {
@@ -112,7 +118,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             if(!(this.getLocalClassName().equalsIgnoreCase("ListadoCitasActivity"))){
                 Intent i = new Intent(this, ListadoCitasActivity.class);
                 startActivity(i);
-                finish();
+
             }
 
         }
@@ -121,7 +127,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             if(!(this.getLocalClassName().equalsIgnoreCase("ListaVeterinariosActivity"))){
                 Intent i = new Intent(this, ListaVeterinariosActivity.class);
                 startActivity(i);
-                finish();
+
             }
 
         }

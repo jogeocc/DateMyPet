@@ -138,7 +138,10 @@ public class HistorialMedicoActivity extends MenuActivity {
                     i.putExtra("nombreMascota",nombreMascota);
                     startActivity(i);
                 }else{
-                    Toast.makeText(HistorialMedicoActivity.this, "Agregar Registro Med", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(HistorialMedicoActivity.this,RegistroRegMedicoActivity.class);
+                    i.putExtra("idMascota",idMascota);
+                    startActivity(i);
+
                 }
             }
         });

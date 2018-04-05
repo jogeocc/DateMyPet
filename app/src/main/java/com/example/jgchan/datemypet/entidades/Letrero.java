@@ -46,6 +46,19 @@ public class Letrero {
         return;
     }
 
+    public void msjErrorCargaSinNada(ProgressDialog progress) {
+        progress.dismiss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡UPPS!")
+                .setMessage("Ha Ocurrido un error, si el problema persiste contacte al administrador.")
+                .setCancelable(false)
+                .setPositiveButton("OK", null);
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return;
+    }
+
 
     public void msjErrorDescarga(ProgressDialog progress) {
         progress.dismiss();
@@ -121,6 +134,37 @@ public class Letrero {
             if (error.getKey().equals("vaNota")){
                 errores+="- "+error.getValue().get(0)+"\n";
             }
+
+
+            if (error.getKey().equals("idVeterinario")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("ciFecha")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("ciTipo")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("ciHora")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("regMedFecha")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("regMedPercanse")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+            if (error.getKey().equals("regMedDescp")){
+                errores+="- "+error.getValue().get(0)+"\n";
+            }
+
+
         }
 
         msjErrores(msj,errores);
@@ -133,11 +177,7 @@ public class Letrero {
         builder.setTitle("¡UPPS!")
                 .setMessage(msj+" debido a los siguientes motivos:\n\n"+Error+"")
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
+                .setPositiveButton("OK", null);
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -251,5 +291,16 @@ public class Letrero {
     }
 
 
+    public void msjActivacionUsua(String nombreUsuario) {
 
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("¡FELICIDADES!")
+                .setMessage(nombreUsuario + " tu cuenta se activo con éxito")
+                .setCancelable(false)
+                .setPositiveButton("OK",null);
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
 }

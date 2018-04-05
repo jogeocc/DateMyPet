@@ -2,6 +2,7 @@ package com.example.jgchan.datemypet;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +16,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.LinearInterpolator;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +58,8 @@ public class RegistrosFragment extends Fragment {
     private SwipeRefreshLayout lyRefresh;
     public ProgressDialog progress;
     Letrero objLetrero;
+
+    Dialog customDialog = null;
 
     List<Registro> registros;
 
@@ -95,6 +100,42 @@ public class RegistrosFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int pos = position;
+                TextView titulo =(TextView)view.findViewById(R.id.tvLisRegMedPercanse);
+                TextView fecha =(TextView)view.findViewById(R.id.regMedFecha);
+                TextView nota =(TextView)view.findViewById(R.id.tvLisRegMedDescp);
+                TextView veterinario =(TextView)view.findViewById(R.id.tvNombreVet);
+
+
+                // con este tema personalizado evitamos los bordes por defecto
+                customDialog = new Dialog(getActivity(),R.style.Theme_Dialog_Translucent);
+                //deshabilitamos el título por defecto
+                customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                //obligamos al usuario a pulsar los botones para cerrarlo
+                customDialog.setCancelable(false);
+                //establecemos el contenido de nuestro dialog
+                customDialog.setContentView(R.layout.alert_dialog_registro);
+
+                TextView titDialog = (TextView) customDialog.findViewById(R.id.titulo);
+                titDialog.setText(titulo.getText().toString());
+
+                TextView fechaDialog = (TextView) customDialog.findViewById(R.id.tvVerRegistroFecha);
+                fechaDialog.setText(fecha.getText().toString());
+
+                TextView contenido = (TextView) customDialog.findViewById(R.id.contenido);
+                contenido.setText(nota.getText().toString());
+
+                TextView vete = (TextView) customDialog.findViewById(R.id.tvNomVeterinario);
+                vete.setText(veterinario.getText().toString());
+
+                ((Button) customDialog.findViewById(R.id.aceptar)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        customDialog.dismiss();
+                    }
+                });
+
+
+                customDialog.show();
 
             }
         });

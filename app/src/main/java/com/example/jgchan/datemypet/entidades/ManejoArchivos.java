@@ -34,6 +34,7 @@ public class ManejoArchivos implements FilenameFilter {
     ProgressDialog progress;
     Letrero objLetrero;
     String archivo="";
+    int contadorErrores=0;
 
     public ManejoArchivos(){}
 
@@ -124,7 +125,7 @@ public class ManejoArchivos implements FilenameFilter {
     }
 
 
-    public boolean descargarPdf(final String idMascota, final String nombreMascota, apiService service){
+    public boolean descargarPdf(final String idMascota, final String nombreMascota, final apiService service){
         Log.d("Files", "Entro a descargar");
 
 
@@ -149,11 +150,14 @@ public class ManejoArchivos implements FilenameFilter {
                     Log.d("PDFDOWNLOAD", "Se descargo coorectamente? " + writtenToDisk);
 
                 }else{
-                    objLetrero.msjErrorDescarga(progress);
+                    contadorErrores++;
+                    if (contadorErrores==3){
+                        objLetrero.msjErrorDescarga(progress);
+                        contadorErrores=0;
+                    }else
+                        descargarPdf(idMascota,nombreMascota,service);
 
-                    Toast.makeText(activity, "Error vuelva intentarlo mas tarde" , Toast.LENGTH_LONG).show();
-                    Log.d("Files", "No regreso correctamente");
-                    Log.d("Files", "Error: "+response.message()+" codigo"+response.code());
+
                 }
 
             }

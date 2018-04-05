@@ -127,7 +127,7 @@ public class VerVacunasActivity extends MenuActivity {
             public void onClick(View view) {
               Intent i = new Intent(VerVacunasActivity.this,RegistroVacunasActivity.class);
               i.putExtra("idMascota",idMascota);
-              startActivity(i);
+              startActivityForResult(i,1);
             }
         });
 
@@ -362,6 +362,10 @@ public class VerVacunasActivity extends MenuActivity {
 
         if(requestCode == 0 && resultCode == RESULT_OK){
                 getVacunas(false);
+        }
+
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            getVacunas(false);
         }
 
 

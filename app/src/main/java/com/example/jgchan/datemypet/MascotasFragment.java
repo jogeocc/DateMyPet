@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
@@ -137,6 +139,54 @@ public class MascotasFragment extends Fragment {
                             .setDuration(100); // Cambiar al tiempo deseado
             }
 
+        });
+
+        lista_mascota.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final TextView idMascota =(TextView)view.findViewById(R.id.listIdMasc);
+                final TextView nombreMascota =(TextView)view.findViewById(R.id.listNomMas);
+                TextView letrero =(TextView)view.findViewById(R.id.tvLetreroItemNomMas);
+
+
+
+                PopupMenu popup = new PopupMenu(getActivity(), letrero);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.menu_popup_vac_y_his, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent i;
+
+                        switch (item.getItemId()) {
+                            case R.id.popup_vacunas:
+                                i = new Intent(getContext(), VerVacunasActivity.class);
+                                i.putExtra("idMascota",idMascota.getText().toString());
+                                i.putExtra("donde",1);
+                                startActivity(i);
+                                break;
+
+                            case R.id.popup_historial:
+
+                                i = new Intent(getContext(), HistorialMedicoActivity.class);
+                                i.putExtra("idMascota",idMascota.getText().toString());
+                                i.putExtra("nombreMascota",nombreMascota.getText().toString());
+                                i.putExtra("donde",1);
+                                startActivity(i);
+
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+                return true;
+            }
         });
 
         getMascotas(false);
