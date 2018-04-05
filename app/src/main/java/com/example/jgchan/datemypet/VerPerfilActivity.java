@@ -13,8 +13,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.jgchan.datemypet.conexion.apiService;
+import com.example.jgchan.datemypet.entidades.AccessToken;
+import com.example.jgchan.datemypet.entidades.Citas;
+import com.example.jgchan.datemypet.entidades.Usuarios;
+
+import retrofit2.Call;
+
 public class VerPerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    List<Usuarios> usuarios ;
+    private AccessToken datosAlamcenados;
+    Call<Usuarios> call;
+    apiService service;
+    String id_user=null;
+    private TokenManager tokenManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,4 +114,7 @@ public class VerPerfilActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

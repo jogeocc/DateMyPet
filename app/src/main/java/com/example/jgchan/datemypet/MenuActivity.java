@@ -50,8 +50,14 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
     Call<Citas> call;
     apiService service;
     String id_user=null;
+
+
     private TokenManager tokenManager;
+
+
     ProgressDialog progress;
+
+
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -104,6 +110,8 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
         lista_citas = (ListView)findViewById(R.id.lista_citas); //DAMOS DE ALTA EL CONTROLADOR LISTVIEW
 
+
+
         service = RetrofitBuilder.createService(apiService.class); //HABILITAMOS EL SERVICIO DE PETICION
 
         id_user=tokenManager.getToken().getId_user();
@@ -138,7 +146,7 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
 
     }
 
-    public  void  citas(boolean estaRefrescando){
+    public  void  usuarios(boolean estaRefrescando){
 
         if(!estaRefrescando) {
             progress = new ProgressDialog(this);

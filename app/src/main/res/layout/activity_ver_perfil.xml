@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_ver_perfil"
-        app:menu="@menu/activity_ver_perfil_drawer" />
+        app:tint="@color\PrimaryDark"
+        app:headerLayout="@layout/nav_header_general"
+        app:menu="@menu/activity_general_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
