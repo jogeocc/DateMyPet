@@ -79,7 +79,12 @@ public class InicioActivity extends MenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        //try {
+            super.onCreate(savedInstanceState);
+        //}catch (RuntimeException e){
+        //}
+
+
         setContentView(R.layout.activity_inicio);
 
 
@@ -156,6 +161,7 @@ public class InicioActivity extends MenuActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
 
@@ -239,9 +245,6 @@ public class InicioActivity extends MenuActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
 
             switch (position){
 

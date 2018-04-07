@@ -7,8 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -65,10 +69,14 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //RECUPERANDO DATOS DEL PREF
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        try {
+            super.onCreate(savedInstanceState);
+        }catch (RuntimeException e){
+            Intent i = new Intent(this,this.getClass());
+            startActivity(i);
+            finish();
+        }
+        setContentView(R.layout.activity_inicio);
 
     }
 

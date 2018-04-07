@@ -21,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -54,6 +55,7 @@ import com.example.jgchan.datemypet.conexion.Utils;
 import com.example.jgchan.datemypet.conexion.apiService;
 import com.example.jgchan.datemypet.entidades.AccessToken;
 import com.example.jgchan.datemypet.entidades.ApiError;
+import com.example.jgchan.datemypet.entidades.Permiso;
 import com.example.jgchan.datemypet.entidades.Success;
 import com.example.jgchan.datemypet.entidades.Usuarios;
 import com.yalantis.ucrop.UCrop;
@@ -105,6 +107,11 @@ public class CrearMascotactivity extends MenuActivity {
     public int MY_REQUEST_CODE = 0;
     public int MY_ARCHIVOS = 1;
 
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA};
+
+    Permiso objPermiso = new Permiso();
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -118,20 +125,11 @@ public class CrearMascotactivity extends MenuActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             //para versiones con android 6.0 o superior.
-            if (checkSelfPermission(Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
 
-                requestPermissions(new String[]{Manifest.permission.CAMERA},
-                        MY_REQUEST_CODE);
+                if(!objPermiso.hasPermissions(this, PERMISSIONS)){
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
             }
 
-
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_ARCHIVOS);
-            }
         }
         //----------------------------------------------------------------------------
 
@@ -220,6 +218,7 @@ public class CrearMascotactivity extends MenuActivity {
                             case R.id.pop_menu_camara:
 
 
+
                                 try {
                                     dispatchTakePictureIntent(); //METODO PARA LLAMAR A LA CAMARA
                                 } catch (IOException e) {
@@ -230,6 +229,7 @@ public class CrearMascotactivity extends MenuActivity {
                                 break;
 
                             case R.id.pop_menu_galeria:
+
                                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                 startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
