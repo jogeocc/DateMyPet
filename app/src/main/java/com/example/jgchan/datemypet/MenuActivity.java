@@ -77,7 +77,9 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
             finish();
         }
         setContentView(R.layout.activity_inicio);
-
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        //PARSEARLO
+        datosAlamcenados= tokenManager.getToken();
     }
 
 
@@ -200,8 +202,8 @@ public class MenuActivity extends AppCompatActivity   implements NavigationView.
                 //TODO: Handle case where no email app is available
             }
 
-
         } else if (id == R.id.nav_salir) {
+            tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
             tokenManager.deleteToken();
             Intent i = new Intent(this, IngresarActivity.class);
             startActivity(i);
